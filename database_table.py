@@ -137,6 +137,40 @@ def create():
         db.session.commit()
         return redirect('/create')
 
+@app.route('/delete', methods = ['GET', 'POST'])
+def delete():
+    if request.method == 'GET':
+        return render_template('delete.html')
+    else:
+        ssn = request.form['ssn']
+        Customers.query.filter_by(ssn = ssn).delete()
+        db.session.commit()
+        return redirect('/delete')
+
+@app.route('/update', methods = ['GET', 'POST'])
+def update():
+    if request.method == 'GET':
+        return render_template('update.html')
+    else:
+        ssn = request.form['ssn']
+        name = request.form['name']
+        address = request.form['address']
+        gender = request.form['gender']
+        phone = request.form['phone']
+        dob = request.form['dob']
+        cardNo = request.form['cardNo']
+        memberNo = request.form['memberNo']
+        customers = Customers.query.filter_by(ssn = ssn).first()
+        customers.name = name
+        customers.address = address
+        customers.gender = gender
+        customers.phone = phone
+        customers.dob = dob
+        customers.cardNo = cardNo
+        customers.memberNo = memberNo
+        db.session.commit()
+        return redirect('/update')
+
 if __name__ == '__main__':
     #manager.debug = True
     app.run(host = '0.0.0.0', port = 8000)
