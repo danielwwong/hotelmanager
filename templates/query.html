@@ -10,7 +10,30 @@
     <table style = "border:3px solid; padding:5px;" rules="all" cellpadding='5'>
         <tr>
             {% for name in names %}
-            <td>{{name[0]}}</td>
+            {% if name[0] == "ssn" %}
+            <th>SSN</th>
+            {% endif %}
+            {% if name[0] == "name" %}
+            <th>Name</th>
+            {% endif %}
+            {% if name[0] == "address" %}
+            <th>Address</th>
+            {% endif %}
+            {% if name[0] == "gender" %}
+            <th>Gender</th>
+            {% endif %}
+            {% if name[0] == "phone" %}
+            <th>Phone</th>
+            {% endif %}
+            {% if name[0] == "dob" %}
+            <th>Date of Birth</th>
+            {% endif %}
+            {% if name[0] == "cardNo" %}
+            <th>Card Number</th>
+            {% endif %}
+            {% if name[0] == "memberNo" %}
+            <th>Member Number</th>
+            {% endif %}
             {% endfor %}
         </tr>
         {% for item in items %}
