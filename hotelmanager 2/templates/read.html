@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Query</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--Custom Theme files-->
+<link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="css/menu.css" rel="stylesheet" type="text/css" media="all" />
+<!--//Custom Theme files-->
+<!--js-->
+<script src="js/jquery-2.2.3.min.js"></script>
+<script src="js/SmoothScroll.min.js"></script>
+<!--//js-->
+<!---<link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>--->
+<!--start-smooth-scrolling-->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event){
+				event.preventDefault();
+
+		$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+			});
+		});
+</script>
+<!--//end-smooth-scrolling-->
+</head>
+<body>
+	<!--banner-->
+	<div class="banner about-banner">
+		<!--header-->
+		<div class="header">
+			<div class="container">
+				<div class="logo">
+					<h1><a href="hello.html">Manage <span>System</span></a></h1>
+				</div>
+				<div class="social-icons">
+					<ul>
+						<li><a href="#"> </a></li>
+						<li><a href="#" class="fb"> </a></li>
+						<li><a href="#" class="in"> </a></li>
+						<li><a href="#" class="dott"> </a></li>
+					</ul>
+				</div>
+				<div class="menu">
+					<div class="overlay-navigation">
+						<nav role="navigation">
+							<ul>
+								<li><a href="create.html" data-content="Create User">Create</a></li>
+								<li><a href="delete.html" data-content="Delete?">Delete</a></li>
+								<li><a href="query.html" data-content="Query User">Query</a></li>
+								<li><a href="hello.html" data-content="Go Home">Home</a></li>
+								<li><a href="update.html" data-content="Update Data">Updata</a></li>
+							</ul>
+						</nav>
+					</div>
+					<section class="main">
+						<div class="open-overlay"> <span class="bar-top"></span> <span class="bar-middle"></span> <span class="bar-bottom"></span> </div>
+					</section>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		<!--//header-->
+		<!--banner-text-->
+		<div class="banner-text about-banner-text">
+			<div class="container">
+				<h2><a href="hello.html">Home</a><span> / </span>Read</h2>
+			</div>
+		</div>
+		<!--//banner-text-->
+	</div>
+    <div style="width:100%;margin-top: 30px">
+    <form action = "/read" method = "POST">
+        <label>SSN (type "all" for the entire table)</label>
+        <input type = "text" name = "ssn" maxlength = "30" autofocus>
+
+        <input type = "submit" value = "Read">
+    </form>
+        </div>
+    <div style="width:100%;margin-top: 40px;text-align: center">
+    <table style = "border:3px solid; padding:5px;" rules="all" cellpadding='5'>
+        <thead>
+        <tr>
+            <th>SSN</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Date of Birth</th>
+            <th>Card Number</th>
+            <th>Member Number</th>
+        </tr>
+        </thead>
+           <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{item[0]}}</td>
+            <td>{{item[1]}}</td>
+            <td>{{item[2]}}</td>
+            <td>{{item[3]}}</td>
+            <td>{{item[4]}}</td>
+            <td>{{item[5]}}</td>
+            <td>{{item[6]}}</td>
+            <td>{{item[7]}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+
+	<script>
+		$('.open-overlay').click(function() {
+		  var overlay_navigation = $('.overlay-navigation'),
+			nav_item_1 = $('nav li:nth-of-type(1)'),
+			nav_item_2 = $('nav li:nth-of-type(2)'),
+			nav_item_3 = $('nav li:nth-of-type(3)'),
+			nav_item_4 = $('nav li:nth-of-type(4)'),
+			nav_item_5 = $('nav li:nth-of-type(5)'),
+			top_bar = $('.bar-top'),
+			middle_bar = $('.bar-middle'),
+			bottom_bar = $('.bar-bottom');
+
+		  overlay_navigation.toggleClass('overlay-active');
+		  if (overlay_navigation.hasClass('overlay-active')) {
+
+			top_bar.removeClass('animate-out-top-bar').addClass('animate-top-bar');
+			middle_bar.removeClass('animate-out-middle-bar').addClass('animate-middle-bar');
+			bottom_bar.removeClass('animate-out-bottom-bar').addClass('animate-bottom-bar');
+			overlay_navigation.removeClass('overlay-slide-up').addClass('overlay-slide-down')
+			nav_item_1.removeClass('slide-in-nav-item-reverse').addClass('slide-in-nav-item');
+			nav_item_2.removeClass('slide-in-nav-item-delay-1-reverse').addClass('slide-in-nav-item-delay-1');
+			nav_item_3.removeClass('slide-in-nav-item-delay-2-reverse').addClass('slide-in-nav-item-delay-2');
+			nav_item_4.removeClass('slide-in-nav-item-delay-3-reverse').addClass('slide-in-nav-item-delay-3');
+			nav_item_5.removeClass('slide-in-nav-item-delay-4-reverse').addClass('slide-in-nav-item-delay-4');
+		  } else {
+			top_bar.removeClass('animate-top-bar').addClass('animate-out-top-bar');
+			middle_bar.removeClass('animate-middle-bar').addClass('animate-out-middle-bar');
+			bottom_bar.removeClass('animate-bottom-bar').addClass('animate-out-bottom-bar');
+			overlay_navigation.removeClass('overlay-slide-down').addClass('overlay-slide-up')
+			nav_item_1.removeClass('slide-in-nav-item').addClass('slide-in-nav-item-reverse');
+			nav_item_2.removeClass('slide-in-nav-item-delay-1').addClass('slide-in-nav-item-delay-1-reverse');
+			nav_item_3.removeClass('slide-in-nav-item-delay-2').addClass('slide-in-nav-item-delay-2-reverse');
+			nav_item_4.removeClass('slide-in-nav-item-delay-3').addClass('slide-in-nav-item-delay-3-reverse');
+			nav_item_5.removeClass('slide-in-nav-item-delay-4').addClass('slide-in-nav-item-delay-4-reverse');
+		  }
+		})
+	</script>
+	<!--nav-script-->
+	<!--smooth-scrolling-of-move-up-->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
+			*/
+
+			$().UItoTop({ easingType: 'easeOutQuart' });
+
+		});
+	</script>
+	<!--//smooth-scrolling-of-move-up-->
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/bootstrap.js"></script>
+</body>
+</html>
