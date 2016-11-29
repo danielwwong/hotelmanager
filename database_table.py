@@ -21,19 +21,19 @@ class Customers(db.Model):
     gender = db.Column(db.String(1))
     phone = db.Column(db.SmallInteger)
     dob = db.Column(db.SmallInteger)
-    cardNo = db.Column(db.SmallInteger, unique = True)
-    memberNo = db.Column(db.SmallInteger, unique = True)
+    cardNo = db.Column(db.SmallInteger)
+    memberNo = db.Column(db.SmallInteger)
 
 class Order(db.Model):
     __tablename__ = 'Order'
     orderNo = db.Column(db.SmallInteger, primary_key = True)
-    roomNo = db.Column(db.SmallInteger, unique = True)
+    roomNo = db.Column(db.SmallInteger)
     customer = db.Column(db.String(30))
     checkInDate = db.Column(db.SmallInteger)
     checkOutDate = db.Column(db.SmallInteger)
     price = db.Column(db.Float)
-    pointCharge = db.Column(db.SmallInteger)
-    cashierNo = db.Column(db.SmallInteger, unique = True)
+    pointChange = db.Column(db.SmallInteger)
+    cashierNo = db.Column(db.SmallInteger)
 
 class Rooms(db.Model):
     __tablename__ = 'Rooms'
@@ -46,7 +46,7 @@ class Rooms(db.Model):
 
 class Staff(db.Model):
     __tablename__ = 'Staff'
-    ssn = db.Column(db.SmallInteger, unique = True)
+    ssn = db.Column(db.SmallInteger)
     staffNo = db.Column(db.SmallInteger, primary_key = True)
     position = db.Column(db.String(30))
     workYear = db.Column(db.SmallInteger)
@@ -59,8 +59,8 @@ class Staff(db.Model):
 class Maintains(db.Model):
     __tablename__ = 'Maintains'
     record = db.Column(db.String(10), primary_key = True)
-    staffNo = db.Column(db.SmallInteger, unique = True)
-    roomNo = db.Column(db.SmallInteger, unique = True)
+    staffNo = db.Column(db.SmallInteger)
+    roomNo = db.Column(db.SmallInteger)
     linens = db.Column(db.String(10))
     lQty = db.Column(db.SmallInteger)
     lType = db.Column(db.String(10))
@@ -71,9 +71,9 @@ class Maintains(db.Model):
 class Public_Equipment_Repair(db.Model):
     __tablename__ = 'Public_Equipment_Repair'
     record = db.Column(db.String(10), primary_key = True)
-    staffNo = db.Column(db.SmallInteger, unique = True)
+    staffNo = db.Column(db.SmallInteger)
     equipName = db.Column(db.String(10))
-    equipID = db.Column(db.SmallInteger, unique = True)
+    equipID = db.Column(db.SmallInteger)
     cost = db.Column(db.Float)
     date = db.Column(db.SmallInteger)
 
