@@ -7,19 +7,19 @@
 <meta name="keywords" content="" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--Custom Theme files-->
-<link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-<link href="css/style.css" type="text/css" rel="stylesheet" media="all">
-<link href="css/menu.css" rel="stylesheet" type="text/css" media="all" />
+<link href="{{url_for('static', filename='css/bootstrap.css')}}" type="text/css" rel="stylesheet" media="all">
+<link href="{{url_for('static', filename='css/style.css')}}" type="text/css" rel="stylesheet" media="all">
+<link href="{{url_for('static', filename='css/menu.css')}}" rel="stylesheet" type="text/css" media="all" />
 <!--//Custom Theme files-->
 <!--js-->
-<script src="js/jquery-2.2.3.min.js"></script>
-<script src="js/SmoothScroll.min.js"></script>
+<script src="{{url_for('static', filename='js/jquery-2.2.3.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/SmoothScroll.min.js')}}"></script>
 <!--//js-->
 <!---<link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>--->
 <!--start-smooth-scrolling-->
-<script type="text/javascript" src="js/move-top.js"></script>
-<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/move-top.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/easing.js')}}"></script>
 <script type="text/javascript">
 		jQuery(document).ready(function($) {
 			$(".scroll").click(function(event){
@@ -38,7 +38,7 @@
 		<div class="header">
 			<div class="container">
 				<div class="logo">
-					<h1><a href="hello.html">Manage <span>System</span></a></h1>
+					<h1><a href="/">Manage <span>System</span></a></h1>
 				</div>
 				<div class="social-icons">
 					<ul>
@@ -52,11 +52,11 @@
 					<div class="overlay-navigation">
 						<nav role="navigation">
 							<ul>
-								<li><a href="create.html" data-content="Create User">Create</a></li>
-								<li><a href="delete.html" data-content="Delete?">Delete</a></li>
-								<li><a href="query.html" data-content="Query User">Query</a></li>
-								<li><a href="hello.html" data-content="Go Home">Home</a></li>
-								<li><a href="update.html" data-content="Update Data">Updata</a></li>
+								<li><a href="/create" data-content="Create User">Create</a></li>
+								<li><a href="/delete" data-content="Delete?">Delete</a></li>
+								<li><a href="/query" data-content="Query User">Query</a></li>
+								<li><a href="/" data-content="Go Home">Home</a></li>
+								<li><a href="/update" data-content="Update Data">Updata</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -71,7 +71,7 @@
 		<!--banner-text-->
 		<div class="banner-text about-banner-text">
 			<div class="container">
-				<h2><a href="hello.html">Home</a><span> / </span>Read</h2>
+				<h2><a href="/">Home</a><span> / </span>Read</h2>
 			</div>
 		</div>
 		<!--//banner-text-->
@@ -83,8 +83,7 @@
 
         <input type = "submit" value = "Read">
     </form>
-        </div>
-    <div style="width:100%;margin-top: 40px;text-align: center">
+    </div>
     {% if items %}
     <table style = "border:3px solid; padding:5px;" rules="all" cellpadding='5'>
         <thead>
@@ -115,7 +114,6 @@
         </tbody>
     </table>
     {% endif %}
-    </div>
 
 	<script>
 		$('.open-overlay').click(function() {
@@ -175,6 +173,6 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/bootstrap.js"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
 </body>
 </html>
