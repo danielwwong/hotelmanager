@@ -119,6 +119,10 @@ class Deal(db.Model):
     endDate = db.Column(db.SmallInteger)
     dealNo = db.Column(db.SmallInteger, primary_key = True)
 
+@app.route('/')
+def hello():
+    return render_template('hello.html')
+
 @app.route('/create', methods = ['GET', 'POST'])
 def create():
     if request.method == 'GET':
