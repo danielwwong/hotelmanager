@@ -1,4 +1,4 @@
-import os
+import os, sqlite3
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager
@@ -170,6 +170,44 @@ def update():
         customers.memberNo = memberNo
         db.session.commit()
         return redirect('/update')
+
+@app.route('/read', methods = ['GET', 'POST'])
+def read():
+    if request.method == 'GET':
+        return render_template('read.html')
+    else:
+        sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+        ssn = request.form['ssn']
+        if ssn == 'all':
+            conn = sqlite3.connect(sqlite_file)
+            cursor = conn.cursor()
+            cursor.execute('select * from Customers')
+            data = cursor.fetchall()
+            conn.close()
+            return render_template('read.html', items = data)
+        else:
+            conn = sqlite3.connect(sqlite_file)
+            cursor = conn.cursor()
+            sql_query = "select * from Customers where ssn = " + "'" + ssn + "'"
+            cursor.execute(sql_query)
+            data = cursor.fetchall()
+            conn.close()
+            return render_template('read.html', items = data)
+
+@app.route('/query', methods = ['GET', 'POST'])
+def query():
+    if request.method == 'GET':
+        return render_template('query.html')
+    else:
+        sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+        query = request.form['query']
+        conn = sqlite3.connect(sqlite_file)
+        cursor = conn.cursor()
+        cursor.execute(query)
+        column = cursor.description
+        data = cursor.fetchall()
+        conn.close()
+        return render_template('query.html', names = column, items = data)
 
 if __name__ == '__main__':
     #manager.debug = True

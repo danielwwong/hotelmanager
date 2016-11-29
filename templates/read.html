@@ -1,0 +1,35 @@
+<html>
+    <h1>Customers Table</h1>
+    <form action = "/read" method = "POST">
+        <label>SSN (type "all" for the entire table)</label>
+        <input type = "text" name = "ssn" maxlength = "30" autofocus>
+
+        <input type = "submit" value = "Read">
+    </form>
+    {% if items %}
+    <table style = "border:3px solid; padding:5px;" rules="all" cellpadding='5'>
+        <tr>
+            <th>SSN</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Date of Birth</th>
+            <th>Card Number</th>
+            <th>Member Number</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{item[0]}}</td>
+            <td>{{item[1]}}</td>
+            <td>{{item[2]}}</td>
+            <td>{{item[3]}}</td>
+            <td>{{item[4]}}</td>
+            <td>{{item[5]}}</td>
+            <td>{{item[6]}}</td>
+            <td>{{item[7]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</html>
