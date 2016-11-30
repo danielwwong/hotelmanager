@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
+<meta name="description" content="Alerts on error, success with bootstrap.">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--Custom Theme files-->
 <link href="{{url_for('static', filename='css/bootstrap.css')}}" type="text/css" rel="stylesheet" media="all">
@@ -53,7 +54,7 @@
 						<nav role="navigation">
 							<ul>
 								<li><a href="/create" data-content="Create User">Create</a></li>
-								<li><a href="/delete" data-content="Delete?">Delete</a></li>
+								<li><a href="/delete" data-content="Delete">Delete</a></li>
 								<li><a href="/query" data-content="Query User">Query</a></li>
 								<li><a href="/read" data-content="Read Data">Read</a></li>
 								<li><a href="/" data-content="Go Home">Home</a></li>
@@ -82,11 +83,17 @@
 		<div class="container">
 			<div class="address-row">
 					<div class="address-grid" style="width:60%;margin:0px auto">
-						<h4>Sign in </h4>
-						    <form action = "/signin" method = "POST">
-								<input type = "text" name = "name" maxlength = "30" placeholder="name">
-								<input type = "text" name = "password" maxlength = "300" placeholder="password">
-								<input type = "submit" value = "Sign in">
+						<h4>Sign in</h4>
+                        <div class="alert alert-info">
+                            <a class="close" data-dismiss="alert">×</a>
+                            <strong>Error!</strong> Invalid User Name or Password.
+                        </div>
+                        <form action = "/signin" method = "POST">
+								<input type = "text" name = "Name" maxlength = "30" placeholder="name" autofocus>
+								<input type = "text" name = "Password" maxlength = "300" placeholder="password">
+								<input type = "submit" value = "Customer">
+                                <input type = "submit" value = "Employee">
+                                <input type = "submit" value = "Manager">
 							</form>
 					</div>
 			</div>
@@ -234,5 +241,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap-alert.js')}}"></script>
 </body>
 </html>
