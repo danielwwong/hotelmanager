@@ -122,6 +122,10 @@ class Deal(db.Model):
 def hello():
     return render_template('hello.html')
 
+@app.route('/signin')
+def signin():
+    return render_template('signin.html')
+
 @app.route('/create', methods = ['GET', 'POST'])
 def create():
     if request.method == 'GET':
