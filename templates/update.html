@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
+<meta name="description" content="Alerts on error, success with bootstrap.">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--Custom Theme files-->
 <link href="{{url_for('static', filename='css/bootstrap.css')}}" type="text/css" rel="stylesheet" media="all">
@@ -83,8 +84,21 @@
 			<div class="address-row">
 					<div class="address-grid" style="width:60%;margin:0px auto">
 						<h4>Update a User </h4>
+                        {% if information %}
+                        {% if information == 1 %}
+                        <div class="alert alert-success">
+                            <a class="close" data-dismiss="alert">×</a>
+                            <strong>Success!</strong> You have successfully updated it.
+                        </div>
+                        {% else %}
+                        <div class="alert alert-info">
+                            <a class="close" data-dismiss="alert">×</a>
+                            <strong>Error!</strong> No record matches. Cannot update it.
+                        </div>
+                        {% endif %}
+                        {% endif %}
 						    <form action = "/update" method = "POST">
-								<input type = "text" name = "ssn" maxlength = "30" placeholder="SSN">
+								<input type = "text" name = "ssn" maxlength = "30" placeholder="SSN" autofocus>
 								<input type = "text" name = "name" maxlength = "30" placeholder="Name">
 								<input type = "text" name = "address" maxlength = "300" placeholder="Address">
 								<label>Gender:  </label>
@@ -245,5 +259,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap-alert.js')}}"></script>
 </body>
 </html>

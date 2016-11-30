@@ -53,7 +53,7 @@
 						<nav role="navigation">
 							<ul>
 								<li><a href="/create" data-content="Create User">Create</a></li>
-								<li><a href="/delete" data-content="Delete">Delete</a></li>
+								<li><a href="/delete" data-content="Delete?">Delete</a></li>
 								<li><a href="/" data-content="GO Home">Home</a></li>
 								<li><a href="/read" data-content="Read Data">Read</a></li>
 								<li><a href="/update" data-content="Update Data">Updata</a></li>
@@ -76,15 +76,19 @@
 		</div>
 		<!--//banner-text-->
 	</div>
-<div style="width:100%;margin-top: 30px">
+    <div class="address"><!--address-->
+    <div class="address-grid"style="width:100%;margin-top: 0px">
     <form action = "/query" method = "POST">
         <label>Query</label>
         <input type = "text" name = "query" autofocus>
+
         <input type = "submit" value = "Query">
     </form>
-</div>
+    </div>
+    <div class="address-grid" style="width:100%;margin:0px auto;text-align:left">
+    <!--<div style="width:100%;margin-top: 40px;text-align: center">-->
     {% if items %}
-    <table style = "border:3px solid; padding:5px;" rules="all" cellpadding='5'>
+    <table style="border:3px solid; padding:3px;text-align:center" rules="all" cellpadding='5'>
         <thead>
         <tr>
             {% for name in names %}
@@ -147,7 +151,32 @@
         </tbody>
     </table>
     {% endif %}
+    </div>
+    </div>
 
+	<div class="footer-nav">
+		<div class="container">
+			<div class="footer-nav-left">
+				<ul>
+					<li><a href="/">Home</a></li>
+					<li><a href="about.html">About</a></li>
+					<li><a href="gallery.html">Gallery</a></li>
+					<li><a href="codes.html">Codes</a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</div>
+			<div class="footer-nav-right">
+				<h4><a href="/"> Manager <span>System</span></a></h4>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<!--//footer-nav-->
+	<div class="footer-copy">
+		<div class="container">
+			<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+		</div>
+	</div>
 	<script>
 		$('.open-overlay').click(function() {
 		  var overlay_navigation = $('.overlay-navigation'),

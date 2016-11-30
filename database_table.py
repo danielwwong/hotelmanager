@@ -8,7 +8,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'hotel_manager.sqlite')
-#app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 manager = Manager(app)
 db = SQLAlchemy(app)
@@ -137,9 +136,14 @@ def create():
         cardNo = request.form['cardNo']
         memberNo = request.form['memberNo']
         customers = Customers(ssn = ssn, name = name, address = address, gender = gender, phone = phone, dob = dob, cardNo = cardNo, memberNo = memberNo)
-        db.session.add(customers)
-        db.session.commit()
-        return redirect('/create')
+        try:
+            db.session.add(customers)
+            db.session.commit()
+            info = 1
+            return render_template('create.html', information = info)
+        except:
+            info = 2
+            return render_template('create.html', information = info)
 
 @app.route('/delete', methods = ['GET', 'POST'])
 def delete():
@@ -147,9 +151,18 @@ def delete():
         return render_template('delete.html')
     else:
         ssn = request.form['ssn']
-        Customers.query.filter_by(ssn = ssn).delete()
-        db.session.commit()
-        return redirect('/delete')
+        try:
+            customers = Customers.query.filter_by(ssn = ssn).first()
+        except:
+            return None
+        if customers is None:
+            info = 2
+            return render_template('delete.html', information = info)
+        else:
+            Customers.query.filter_by(ssn = ssn).delete()
+            db.session.commit()
+            info = 1
+            return render_template('delete.html', information = info)
 
 @app.route('/update', methods = ['GET', 'POST'])
 def update():
@@ -164,16 +177,24 @@ def update():
         dob = request.form['dob']
         cardNo = request.form['cardNo']
         memberNo = request.form['memberNo']
-        customers = Customers.query.filter_by(ssn = ssn).first()
-        customers.name = name
-        customers.address = address
-        customers.gender = gender
-        customers.phone = phone
-        customers.dob = dob
-        customers.cardNo = cardNo
-        customers.memberNo = memberNo
-        db.session.commit()
-        return redirect('/update')
+        try:
+            customers = Customers.query.filter_by(ssn = ssn).first()
+        except:
+            return None
+        if customers is None:
+            info = 2
+            return render_template('update.html', information = info)
+        else:
+            customers.name = name
+            customers.address = address
+            customers.gender = gender
+            customers.phone = phone
+            customers.dob = dob
+            customers.cardNo = cardNo
+            customers.memberNo = memberNo
+            db.session.commit()
+            info = 1
+            return render_template('update.html', information = info)
 
 @app.route('/read', methods = ['GET', 'POST'])
 def read():
@@ -190,13 +211,21 @@ def read():
             conn.close()
             return render_template('read.html', items = data)
         else:
-            conn = sqlite3.connect(sqlite_file)
-            cursor = conn.cursor()
-            sql_query = "select * from Customers where ssn = " + "'" + ssn + "'"
-            cursor.execute(sql_query)
-            data = cursor.fetchall()
-            conn.close()
-            return render_template('read.html', items = data)
+            try:
+                customers = Customers.query.filter_by(ssn = ssn).first()
+            except:
+                return None
+            if customers is None:
+                info = 2
+                return render_template('read.html', information = info)
+            else:
+                conn = sqlite3.connect(sqlite_file)
+                cursor = conn.cursor()
+                sql_query = "select * from Customers where ssn = " + "'" + ssn + "'"
+                cursor.execute(sql_query)
+                data = cursor.fetchall()
+                conn.close()
+                return render_template('read.html', items = data)
 
 @app.route('/query', methods = ['GET', 'POST'])
 def query():
