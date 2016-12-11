@@ -126,6 +126,54 @@ def hello():
 def signin():
     return render_template('signin.html')
 
+@app.route('/booking', methods = ['GET', 'POST'])
+def booking():
+    if request.method == 'GET':
+        return render_template('booking.html')
+    else:
+        info = 1
+        return render_template('booking.html', information = info)
+
+@app.route('/bus')
+def bus():
+    return render_template('bus.html')
+
+@app.route('/carrental')
+def carrental():
+    return render_template('carrental.html')
+
+@app.route('/membership')
+def membership():
+    return render_template('membership.html')
+
+@app.route('/customerpageofemployee')
+def customerpageofemployee():
+    return render_template('read.html')
+
+@app.route('/customer')
+def customer():
+    return render_template('customer.html')
+
+@app.route('/employeedelete')
+def employeedelete():
+    return render_template('employeedelete.html')
+
+@app.route('/employeeupdate')
+def employeeupdate():
+    return render_template('employeeupdate.html')
+
+@app.route('/add')
+def add():
+    return render_template('add.html')
+
+@app.route('/roominformation')
+def roominformation():
+    return render_template('roominformation.html')
+
+@app.route('/employee')
+def employee():
+    return render_template('employee.html')
+
 @app.route('/create', methods = ['GET', 'POST'])
 def create():
     if request.method == 'GET':
