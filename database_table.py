@@ -23,7 +23,7 @@ class Customers(db.Model):
     cardNo = db.Column(db.SmallInteger)
     memberNo = db.Column(db.SmallInteger)
 
-class Order(db.Model):
+class Orders(db.Model):
     __tablename__ = 'Orders'
     orderNo = db.Column(db.SmallInteger, primary_key = True)
     roomNo = db.Column(db.SmallInteger)
@@ -78,7 +78,7 @@ class Public_Equipment_Repair(db.Model):
 
 class Buses(db.Model):
     __tablename__ = 'Buses'
-    VIN = db.Column(db.String(17), primary_key = True)
+    licenseNo = db.Column(db.String(10), primary_key = True)
     lines = db.Column(db.String(10))
     destination = db.Column(db.String(20))
     departTime = db.Column(db.SmallInteger)
@@ -444,6 +444,209 @@ def dealRead():
                 data = cursor.fetchall()
                 conn.close()
                 return render_template('dealRead.html', items = data)
+
+@app.route('/ordersCreate', methods = ['GET', 'POST'])
+def ordersCreate():
+    if request.method == 'GET':
+        return render_template('ordersCreate.html')
+    else:
+        orderNo = request.form['orderNo']
+        roomNo = request.form['roomNo']
+        customer = request.form['customer']
+        checkInDate = request.form['checkInDate']
+        checkOutDate = request.form['checkOutDate']
+        price = request.form['price']
+        pointChange = request.form['pointChange']
+        cashierNo = request.form['cashierNo']
+        orders = Orders(orderNo = orderNo, roomNo = roomNo, customer = customer, checkInDate = checkInDate, checkOutDate = checkOutDate, price = price, pointChange = pointChange, cashierNo = cashierNo)
+        try:
+            db.session.add(orders)
+            db.session.commit()
+            info = 1
+            return render_template('ordersCreate.html', information = info)
+        except:
+            info = 2
+            return render_template('ordersCreate.html', information = info)
+
+@app.route('/roomsCreate', methods = ['GET', 'POST'])
+def roomsCreate():
+    if request.method == 'GET':
+        return render_template('roomsCreate.html')
+    else:
+        roomNo = request.form['roomNo']
+        inRoomBill = request.form['inRoomBill']
+        capacity = request.form['capacity']
+        bedsNo = request.form['bedsNo']
+        type = request.form['type']
+        status = request.form['status']
+        rooms = Rooms(roomNo = roomNo, inRoomBill = inRoomBill, capacity = capacity, bedsNo = bedsNo, type = type, status = status)
+        try:
+            db.session.add(rooms)
+            db.session.commit()
+            info = 1
+            return render_template('roomsCreate.html', information = info)
+        except:
+            info = 2
+            return render_template('roomsCreate.html', information = info)
+
+@app.route('/maintainsCreate', methods = ['GET', 'POST'])
+def maintainsCreate():
+    if request.method == 'GET':
+        return render_template('maintainsCreate.html')
+    else:
+        record = request.form['record']
+        staffNo = request.form['staffNo']
+        roomNo = request.form['roomNo']
+        linens = request.form['linens']
+        lQty = request.form['lQty']
+        lType = request.form['lType']
+        reusable = request.form['reusable']
+        cost = request.form['cost']
+        date = request.form['date']
+        maintains = Maintains(record = record, staffNo = staffNo, roomNo = roomNo, linens = linens, lQty = lQty, lType = lType, reusable = reusable, cost = cost, date = date)
+        try:
+            db.session.add(maintains)
+            db.session.commit()
+            info = 1
+            return render_template('maintainsCreate.html', information = info)
+        except:
+            info = 2
+            return render_template('maintainsCreate.html', information = info)
+
+@app.route('/equipCreate', methods = ['GET', 'POST'])
+def equipCreate():
+    if request.method == 'GET':
+        return render_template('equipCreate.html')
+    else:
+        record = request.form['record']
+        staffNo = request.form['staffNo']
+        equipName = request.form['equipName']
+        equipID = request.form['equipID']
+        cost = request.form['cost']
+        date = request.form['date']
+        equip = Public_Equipment_Repair(record = record, staffNo = staffNo, equipName = equipName, equipID = equipID, cost = cost, date = date)
+        try:
+            db.session.add(equip)
+            db.session.commit()
+            info = 1
+            return render_template('equipCreate.html', information = info)
+        except:
+            info = 2
+            return render_template('equipCreate.html', information = info)
+
+@app.route('/membershipCreate', methods = ['GET', 'POST'])
+def membershipCreate():
+    if request.method == 'GET':
+        return render_template('membershipCreate.html')
+    else:
+        memberNo = request.form['memberNo']
+        name = request.form['name']
+        points = request.form['points']
+        level = request.form['level']
+        beginDate = request.form['beginDate']
+        endDate = request.form['endDate']
+        membership = Membership(memberNo = memberNo, name = name, points = points, level = level, beginDate = beginDate, endDate = endDate)
+        try:
+            db.session.add(membership)
+            db.session.commit()
+            info = 1
+            return render_template('membershipCreate.html', information = info)
+        except:
+            info = 2
+            return render_template('membershipCreate.html', information = info)
+
+@app.route('/staffCreate', methods = ['GET', 'POST'])
+def staffCreate():
+    if request.method == 'GET':
+        return render_template('staffCreate.html')
+    else:
+        ssn = request.form['ssn']
+        staffNo = request.form['staffNo']
+        position = request.form['position']
+        workYear = request.form['workYear']
+        name = request.form['name']
+        address = request.form['address']
+        phone = request.form['phone']
+        gender = request.form['gender']
+        salary = request.form['salary']
+        staff = Staff(ssn = ssn, staffNo = staffNo, position = position,workYear = workYear, name = name, address = address, phone = phone, gender = gender, salary = salary, staff = staff)
+        try:
+            db.session.add(staff)
+            db.session.commit()
+            info = 1
+            return render_template('staffCreate.html', information = info)
+        except:
+            info = 2
+            return render_template('staffCreate.html', information = info)
+
+@app.route('/busesCreate', methods = ['GET', 'POST'])
+def busesCreate():
+    if request.method == 'GET':
+        return render_template('busesCreate.html')
+    else:
+        licenseNo = request.form['licenseNo']
+        lines = request.form['lines']
+        destination = request.form['destination']
+        departTime = request.form['departTime']
+        carType = request.form['carType']
+        capacity = request.form['capacity']
+        price = request.form['price']
+        takenBy = request.form['takenBy']
+        buses = Buses(licenseNo = licenseNo, lines = lines, destination = destination, departTime = departTime, carType = carType, capacity = capacity, price = price, takenBy = takenBy)
+        try:
+            db.session.add(buses)
+            db.session.commit()
+            info = 1
+            return render_template('busesCreate.html', information = info)
+        except:
+            info = 2
+            return render_template('busesCreate.html', information = info)
+
+@app.route('/rentCarCreate', methods = ['GET', 'POST'])
+def rentCarCreate():
+    if request.method == 'GET':
+        return render_template('rentCarCreate.html')
+    else:
+        VIN = request.form['VIN']
+        company = request.form['company']
+        carType = request.form['carType']
+        capacity = request.form['capacity']
+        priceTotal = request.form['priceTotal']
+        rentDate = request.form['rentDate']
+        returnDate = request.form['returnDate']
+        rentPlace = request.form['rentPlace']
+        returnPlace = request.form['returnPlace']
+        rentBy = request.form['rentBy']
+        rentCar = Rent_Car(VIN = VIN, company = company, carType = carType, capacity = capacity, priceTotal = priceTotal, rentDate = rentDate, returnDate = returnDate, rentPlace = rentPlace, returnPlace = returnPlace, rentBy = rentBy)
+        try:
+            db.session.add(rentCar)
+            db.session.commit()
+            info = 1
+            return render_template('rentCarCreate.html', information = info)
+        except:
+            info = 2
+            return render_template('rentCarCreate.html', information = info)
+
+@app.route('/dealCreate', methods = ['GET', 'POST'])
+def dealCreate():
+    if request.method == 'GET':
+        return render_template('dealCreate.html')
+    else:
+        activity = request.form['activity']
+        joinLevel = request.form['joinLevel']
+        capacity = request.form['capacity']
+        beginDate = request.form['beginDate']
+        endDate = request.form['endDate']
+        dealNo = request.form['dealNo']
+        deal = Deal(activity = activity, joinLevel = joinLevel, capacity = capacity, beginDate = beginDate, endDate = endDate, dealNo = dealNo)
+        try:
+            db.session.add(deal)
+            db.session.commit()
+            info = 1
+            return render_template('dealCreate.html', information = info)
+        except:
+            info = 2
+            return render_template('dealCreate.html', information = info)
 
 @app.route('/customer')
 def customer():
