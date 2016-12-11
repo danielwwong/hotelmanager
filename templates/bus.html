@@ -84,54 +84,22 @@
         </tr>
         </thead>
         <tbody>
+        {% for item in items %}
         <tr>
-            <td>AD1</td>
-            <td>airport</td>
-            <td>9:00</td>
+            {% if item[1] != "lines" %}
+            <td>{{item[1]}}</td>
+            {% endif %}
+            {% if item[2] != "destination" %}
+            <td>{{item[2]}}</td>
+            {% endif %}
+            {% if item[3] != "departTime" %}
+            <td>{{item[3]}}</td>
+            {% endif %}
         </tr>
-        <tr>
-            <td>HA1</td>
-            <td>hotel</td>
-            <td>10:00</td>
-        </tr>
-        <tr>
-            <td>DH1</td>
-            <td>downtown</td>
-            <td>11:00</td>
-        </tr>
-        <tr>
-            <td>AD2</td>
-            <td>airport</td>
-            <td>12:00</td>
-        </tr>
-        <tr>
-            <td>HA2</td>
-            <td>hotel</td>
-            <td>13:00</td>
-        </tr>
-        <tr>
-            <td>DH2</td>
-            <td>downtown</td>
-            <td>14:00</td>
-        </tr>
-        <tr>
-            <td>AD3</td>
-            <td>airport</td>
-            <td>15:00</td>
-        </tr>
-        <tr>
-            <td>HA3</td>
-            <td>hotel</td>
-            <td>16:00</td>
-        </tr>
-        <tr>
-            <td>DH3</td>
-            <td>downtown</td>
-            <td>17:00</td>
-        </tr>
+        {% endfor %}
         </tbody>
     </table>
-    <input type = "button" value="Back" onclick="window.location.href='/customer'">
+    <input type = "submit" value="Back" onclick="window.location.href='/customer'">
     </div>
     </div>
 

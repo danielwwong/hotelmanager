@@ -80,10 +80,6 @@
 	</div>
     <div class="address"><!--address-->
     <div class="address-grid"style="width:100%;margin-top: 30px">
-    <div class="alert alert-info">
-        <a class="close" data-dismiss="alert">×</a>
-        <strong>Error!</strong> Points not enough.
-    </div>
     </div>
     <div class="address-grid"style="width:100%;margin-top:0px;text-align:center">
     <table style = "border:3px solid; padding:5px;" rules="all" cellpadding='5'>
@@ -94,45 +90,31 @@
             <th>Capacity</th>
             <th>Begin Date</th>
             <th>End Date</th>
-            <th>Book</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Carnival</td>
-            <td>1</td>
-            <td>30</td>
-            <td>2016-06-01</td>
-            <td>2016-07-01</td>
-            <td><input type = "checkbox"></td>
-        </tr>
-        <tr>
-            <td>Garden_Party</td>
-            <td>3</td>
-            <td>50</td>
-            <td>2016-07-15</td>
-            <td>2016-08-30</td>
-            <td><input type = "checkbox"></td>
-        </tr>
-        <tr>
-            <td>Jount</td>
-            <td>2</td>
-            <td>100</td>
-            <td>2016-10-01</td>
-            <td>2016-11-01</td>
-            <td><input type = "checkbox"></td>
-        </tr>
-        <tr>
-            <td>Opera</td>
-            <td>5</td>
-            <td>20</td>
-            <td>2016-11-01</td>
-            <td>2016-12-01</td>
-            <td><input type = "checkbox"></td>
-        </tr>
+            {% for item in items %}
+            <tr>
+                {% if item[0] != "activity" %}
+                <td>{{item[0]}}</td>
+                {% endif %}
+                {% if item[1] != "joinLevel" %}
+                <td>{{item[1]}}</td>
+                {% endif %}
+                {% if item[2] != "capacity" %}
+                <td>{{item[2]}}</td>
+                {% endif %}
+                {% if item[3] != "beginDate" %}
+                <td>{{item[3]}}</td>
+                {% endif %}
+                {% if item[4] != "endDate" %}
+                <td>{{item[4]}}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
-    <input type = "submit" value = "Book">
+    <input type = "submit" value="Back" onclick="window.location.href='/customer'">
     </div>
     </div>
 

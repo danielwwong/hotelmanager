@@ -134,9 +134,16 @@ def booking():
         info = 1
         return render_template('booking.html', information = info)
 
+
 @app.route('/bus')
 def bus():
-    return render_template('bus.html')
+    sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+    conn = sqlite3.connect(sqlite_file)
+    cursor = conn.cursor()
+    cursor.execute('select * from Buses')
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('bus.html', items = data)
 
 @app.route('/carrental')
 def carrental():
@@ -144,7 +151,13 @@ def carrental():
 
 @app.route('/membership')
 def membership():
-    return render_template('membership.html')
+    sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+    conn = sqlite3.connect(sqlite_file)
+    cursor = conn.cursor()
+    cursor.execute('select * from Deal')
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('membership.html', items = data)
 
 @app.route('/customerpageofemployee')
 def customerpageofemployee():
