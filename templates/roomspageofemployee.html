@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Contact</title>
+<title>Query</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
@@ -55,10 +55,10 @@
 						<nav role="navigation">
 							<ul>
 								<li><a href="/create" data-content="Create User">Create</a></li>
-								<li><a href="/" data-content="Go Home">Home</a></li>
+								<li><a href="/delete" data-content="Delete">Delete</a></li>
 								<li><a href="/query" data-content="Query User">Query</a></li>
-								<li><a href="/read" data-content="Read Data">Read</a></li>
-								<li><a href="/update" data-content="Update Data">Updata</a></li>
+								<li><a href="/" data-content="Go Home">Home</a></li>
+								<li><a href="/update" data-content="Update Data">Update</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -73,117 +73,70 @@
 		<!--banner-text-->
 		<div class="banner-text about-banner-text">
 			<div class="container">
-				<h2><a href="/">Home</a><span> / </span>Delete</h2>
+				<h2><a href="/">Home</a><span> / </span>Rooms Table<span> / </span><span>Read</span></h2>
 			</div>
 		</div>
 		<!--//banner-text-->
 	</div>
-	<!--//banner-->
-	<!--contact-->
-	<div class="address"><!--address-->
-		<div class="container">
-			<div class="address-row">
-					<div class="address-grid" style="width:60%;margin:0px auto">
-						<h4>Delete a Customer</h4>
-                        <div class="alert alert-success">
-                            <a class="close" data-dismiss="alert">×</a>
-                            <strong>Success!</strong> You have successfully deleted it.
-                        </div>
-                        <form action = "/delete" method = "POST">
-                                <label>ID</label>
-                                <input type = "text" name = "ssn" maxlength = "30" autofocus>
-                                <input type = "submit" value = "Delete">
-                                <input type = "submit" value = "Go to Read">
-                                <input type = "submit" value = "Go to Add">
-                                <input type = "submit" value = "Go to Update">
-                        </form>
-					</div>
-			</div>
-		</div>
-	</div>
-	<!--//contact-->
-	<!--footer-->
-	<div class="footer">
-		<div class="container">
-			<div class="footer-info">
-				<div class="col-md-4 footer-grids">
-					<h3>More About Us</h3>
-					<p>Nulla facilisi. Mauris pretium cursus tincidunt. Nam malesuada purus sit amet est rhoncus vulputate. Duis sit amet porttitor urna. Aliquam erat volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent dictum eros ac nisi scelerisque, eu imperdiet elit tempus.</p>
-				</div>
-				<div class="col-md-4 footer-grids">
-					<h3>Popular Items</h3>
-					<div class="footer-grd">
-						<a href="single.html">
-							<img src="{{url_for('static', filename='images/f1.jpg')}}" class="img-responsive" alt=" ">
-						</a>
-					</div>
-					<div class="footer-grd">
-						<a href="single.html">
-							<img src="{{url_for('static', filename='images/f2.jpg')}}" class="img-responsive" alt=" ">
-						</a>
-					</div>
-					<div class="footer-grd">
-						<a href="single.html">
-							<img src="{{url_for('static', filename='images/f3.jpg')}}" class="img-responsive" alt=" ">
-						</a>
-					</div>
-					<div class="clearfix"> </div>
-					<div class="footer-grd">
-						<a href="single.html">
-							<img src="{{url_for('static', filename='images/f4.jpg')}}" class="img-responsive" alt=" ">
-						</a>
-					</div>
-					<div class="footer-grd">
-						<a href="single.html">
-							<img src="{{url_for('static', filename='images/f5.jpg')}}" class="img-responsive" alt=" ">
-						</a>
-					</div>
-					<div class="footer-grd">
-						<a href="single.html">
-							<img src="{{url_for('static', filename='images/f6.jpg')}}" class="img-responsive" alt=" ">
-						</a>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="col-md-4 footer-grids footer-address">
-					<h3>Contact Us:</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pellentesque nisi at tortor suscipit ultricies.</p>
-					<ul>
-						<li> 123 San ,West street</li>
-						<li>Sebastian dolor</li>
-						<li> New York City, USA. </li>
-					</ul>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-	<!--//footer-->
-	<!--footer-nav-->
-	<div class="footer-nav">
-		<div class="container">
-			<div class="footer-nav-left">
-				<ul>
-					<li><a href="/">Home</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="gallery.html">Gallery</a></li>
-					<li><a href="codes.html">Codes</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</div>
-			<div class="footer-nav-right">
-				<h4><a href="/">Trendy <span>Look</span></a></h4>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
-	</div>
-	<!--//footer-nav-->
-	<div class="footer-copy">
-		<div class="container">
-			<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
-		</div>
-	</div>
-	<!--nav-script-->
+    <div class="address"><!--address-->
+    <div class="address-grid"style="width:100%;margin-top: 30px">
+    {% if information %}
+    {% if information == 2 %}
+    <div class="alert alert-info">
+        <a class="close" data-dismiss="alert">×</a>
+        <strong>Error!</strong> No record matches. Cannot read it.
+    </div>
+    {% endif %}
+    {% endif %}
+    <form action = "/roomspageofemployee" method = "POST">
+        <label>Room Number (type "all" for the entire table)</label>
+        <input type = "text" name = "roomNo" maxlength = "30" autofocus>
+
+        <input type = "submit" value = "Read">
+    </form>
+        </div>
+    <div class="address-grid"style="width:100%;margin-top:0px;text-align:center">
+    {% if items %}
+    <table style = "border:3px solid; padding:5px;" rules="all" cellpadding='5'>
+        <thead>
+        <tr>
+            <th>Room Number</th>
+            <th>In Room Bill</th>
+            <th>Capacity</th>
+            <th>Beds Number</th>
+            <th>Type</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+        <tr>
+            {% if item[0] != "roomNo" %}
+            <td>{{item[0]}}</td>
+            {% endif %}
+            {% if item[1] != "inRoomBill" %}
+            <td>{{item[1]}}</td>
+            {% endif %}
+            {% if item[2] != "capacity" %}
+            <td>{{item[2]}}</td>
+            {% endif %}
+            {% if item[3] != "bedsNo" %}
+            <td>{{item[3]}}</td>
+            {% endif %}
+            {% if item[4] != "type" %}
+            <td>{{item[4]}}</td>
+            {% endif %}
+            {% if item[5] != "status" %}
+            <td>{{item[5]}}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        {% endif %}
+    </div>
+    </div>
+
 	<script>
 		$('.open-overlay').click(function() {
 		  var overlay_navigation = $('.overlay-navigation'),

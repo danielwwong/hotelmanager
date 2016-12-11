@@ -73,7 +73,7 @@
 		<!--banner-text-->
 		<div class="banner-text about-banner-text">
 			<div class="container">
-				<h2><a href="/">Home</a><span> / </span>Read</h2>
+				<h2><a href="/">Home</a><span> / </span>Buses Table<span> / </span><span>Read</span></h2>
 			</div>
 		</div>
 		<!--//banner-text-->
@@ -88,14 +88,11 @@
     </div>
     {% endif %}
     {% endif %}
-    <form action = "/read" method = "POST">
-        <label>ID (type "all" for the entire table)</label>
-        <input type = "text" name = "ssn" maxlength = "30" autofocus>
+    <form action = "/busesRead" method = "POST">
+        <label>Buses Number (type "all" for the entire table)</label>
+        <input type = "text" name = "licenseNo" maxlength = "30" autofocus>
 
         <input type = "submit" value = "Read">
-        <input type = "submit" value = "Go to Add">
-        <input type = "submit" value = "Go to Update">
-        <input type = "submit" value = "Go to Delete">
     </form>
         </div>
     <div class="address-grid"style="width:100%;margin-top:0px;text-align:center">
@@ -103,41 +100,41 @@
     <table style = "border:3px solid; padding:5px;" rules="all" cellpadding='5'>
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Gender</th>
-            <th>Phone</th>
-            <th>Date of Birth</th>
-            <th>Card Number</th>
-            <th>Member Number</th>
+            <th>License Number</th>
+            <th>Lines</th>
+            <th>Destination</th>
+            <th>Departure Time</th>
+            <th>Car Type</th>
+            <th>Capacity</th>
+            <th>Price</th>
+            <th>Taken By</th>
         </tr>
         </thead>
         <tbody>
         {% for item in items %}
         <tr>
-            {% if item[0] != "ssn" %}
+            {% if item[0] != "licenseNo" %}
             <td>{{item[0]}}</td>
             {% endif %}
-            {% if item[1] != "name" %}
+            {% if item[1] != "lines" %}
             <td>{{item[1]}}</td>
             {% endif %}
-            {% if item[2] != "address" %}
+            {% if item[2] != "destination" %}
             <td>{{item[2]}}</td>
             {% endif %}
-            {% if item[3] != "gender" %}
+            {% if item[3] != "departTime" %}
             <td>{{item[3]}}</td>
             {% endif %}
-            {% if item[4] != "phone" %}
+            {% if item[4] != "carType" %}
             <td>{{item[4]}}</td>
             {% endif %}
-            {% if item[5] != "dob" %}
+            {% if item[5] != "capacity" %}
             <td>{{item[5]}}</td>
             {% endif %}
-            {% if item[6] != "cardNo" %}
+            {% if item[6] != "price" %}
             <td>{{item[6]}}</td>
             {% endif %}
-            {% if item[7] != "memberNo" %}
+            {% if item[7] != "takenBy" %}
             <td>{{item[7]}}</td>
             {% endif %}
         </tr>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,11 +53,11 @@
 					<div class="overlay-navigation">
 						<nav role="navigation">
 							<ul>
-								<li><a href="/create" data-content="Create User">Rooms</a></li>
-								<li><a href="/delete" data-content="Delete?">Bus Information</a></li>
-								<li><a href="/query" data-content="Query User">Car Rental</a></li>
 								<li><a href="/" data-content="Go Home">Home</a></li>
-								<li><a href="/update" data-content="Update Data">Membership</a></li>
+								<li><a href="/employeedelete" data-content="Delete">Delete</a></li>
+								<li><a href="/add" data-content="Add">Add</a></li>
+								<li><a href="/read" data-content="Read Data">Read</a></li>
+								<li><a href="/employeeupdate" data-content="Update">Update</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -73,60 +72,24 @@
 		<!--banner-text-->
 		<div class="banner-text about-banner-text">
 			<div class="container">
-				<h2><a href="/">Home</a><span> / </span>Customer<span> / </span>Room Information</h2>
+				<h2><a href="/">Home</a><span> / </span>Employee</h2>
 			</div>
 		</div>
 		<!--//banner-text-->
 	</div>
     <div class="address"><!--address-->
-    <div class="address-grid"style="width:100%;margin-top: 30px">
-    {% if information %}
-    {% if information == 2 %}
-    <div class="alert alert-info">
-        <a class="close" data-dismiss="alert">×</a>
-        <strong>Error!</strong> No record matches. Cannot read it.
-    </div>
-    {% endif %}
-    {% endif %}
-    </div>
     <div class="address-grid"style="width:100%;margin-top:0px;text-align:center">
-    <table style = "border:3px solid; padding:5px;" rules="all" cellpadding='5'>
-        <thead>
-        <tr>
-            <th>Capacity</th>
-            <th>Beds Number</th>
-            <th>Type</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>2</td>
-            <td>1</td>
-            <td>King Bed</td>
-            <td>150</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>2</td>
-            <td>2 Queen Beds</td>
-            <td>170</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>3</td>
-            <td>2 King Beds + Sofabed</td>
-            <td>250</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>4</td>
-            <td>Suites</td>
-            <td>350</td>
-        </tr>
-        </tbody>
-    </table>
-        <input type = "submit" value="Book" onclick="window.location.href='/booking'">
+        <input type = "submit" value = "Customer" onclick="window.location.href='/customerpageofemployee'">
+        <input type = "button" value = "Orders" onclick="window.location.href='/orderspageofemployee'">
+        <input type = "button" value = "Rooms" onclick="window.location.href='/roomsspageofemployee'">
+        <input type = "button" value = "Staff" onclick="window.location.href='/customerspageofemployee'">
+        <input type = "submit" value = "Maintains" onclick="window.location.href='/customerpageofemployee'">
+        <input type = "submit" value = "Public Equipment Repair" onclick="window.location.href='/customerpageofemployee'">
+        <input type = "submit" value = "Membership" onclick="window.location.href='/customerpageofemployee'">
+        <input type = "submit" value = "Buses" onclick="window.location.href='/customerpageofemployee'">
+        <input type = "submit" value = "Rental_Car" onclick="window.location.href='/customerpageofemployee'">
+        <input type = "submit" value = "Deal" onclick="window.location.href='/customerpageofemployee'">
+
     </div>
     </div>
 

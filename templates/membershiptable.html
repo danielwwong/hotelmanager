@@ -54,11 +54,11 @@
 					<div class="overlay-navigation">
 						<nav role="navigation">
 							<ul>
-								<li><a href="/create" data-content="Create User">Rooms</a></li>
-								<li><a href="/delete" data-content="Delete?">Bus Information</a></li>
-								<li><a href="/query" data-content="Query User">Car Rental</a></li>
+								<li><a href="/create" data-content="Create User">Create</a></li>
+								<li><a href="/delete" data-content="Delete">Delete</a></li>
+								<li><a href="/query" data-content="Query User">Query</a></li>
 								<li><a href="/" data-content="Go Home">Home</a></li>
-								<li><a href="/update" data-content="Update Data">Membership</a></li>
+								<li><a href="/update" data-content="Update Data">Update</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -73,7 +73,7 @@
 		<!--banner-text-->
 		<div class="banner-text about-banner-text">
 			<div class="container">
-				<h2><a href="/">Home</a><span> / </span>Customer<span> / </span>Room Information</h2>
+				<h2><a href="/">Home</a><span> / </span>Membership Table<span> / </span><span>Read</span></h2>
 			</div>
 		</div>
 		<!--//banner-text-->
@@ -88,45 +88,52 @@
     </div>
     {% endif %}
     {% endif %}
-    </div>
+    <form action = "/membershiptable" method = "POST">
+        <label>Member Number (type "all" for the entire table)</label>
+        <input type = "text" name = "memberNo" maxlength = "30" autofocus>
+
+        <input type = "submit" value = "Read">
+    </form>
+        </div>
     <div class="address-grid"style="width:100%;margin-top:0px;text-align:center">
+    {% if items %}
     <table style = "border:3px solid; padding:5px;" rules="all" cellpadding='5'>
         <thead>
         <tr>
-            <th>Capacity</th>
-            <th>Beds Number</th>
-            <th>Type</th>
-            <th>Price</th>
+            <th>Memeber Number</th>
+            <th>Name</th>
+            <th>Points</th>
+            <th>Level</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
         </tr>
         </thead>
         <tbody>
+        {% for item in items %}
         <tr>
-            <td>2</td>
-            <td>1</td>
-            <td>King Bed</td>
-            <td>150</td>
+            {% if item[0] != "memberNo" %}
+            <td>{{item[0]}}</td>
+            {% endif %}
+            {% if item[1] != "name" %}
+            <td>{{item[1]}}</td>
+            {% endif %}
+            {% if item[2] != "points" %}
+            <td>{{item[2]}}</td>
+            {% endif %}
+            {% if item[3] != "level" %}
+            <td>{{item[3]}}</td>
+            {% endif %}
+            {% if item[4] != "beginDate" %}
+            <td>{{item[4]}}</td>
+            {% endif %}
+            {% if item[5] != "endDate" %}
+            <td>{{item[5]}}</td>
+            {% endif %}
         </tr>
-        <tr>
-            <td>2</td>
-            <td>2</td>
-            <td>2 Queen Beds</td>
-            <td>170</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>3</td>
-            <td>2 King Beds + Sofabed</td>
-            <td>250</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>4</td>
-            <td>Suites</td>
-            <td>350</td>
-        </tr>
+        {% endfor %}
         </tbody>
     </table>
-        <input type = "submit" value="Book" onclick="window.location.href='/booking'">
+        {% endif %}
     </div>
     </div>
 

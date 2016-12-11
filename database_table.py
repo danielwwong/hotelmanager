@@ -24,7 +24,7 @@ class Customers(db.Model):
     memberNo = db.Column(db.SmallInteger)
 
 class Order(db.Model):
-    __tablename__ = 'Order'
+    __tablename__ = 'Orders'
     orderNo = db.Column(db.SmallInteger, primary_key = True)
     roomNo = db.Column(db.SmallInteger)
     customer = db.Column(db.String(30))
@@ -134,7 +134,6 @@ def booking():
         info = 1
         return render_template('booking.html', information = info)
 
-
 @app.route('/bus')
 def bus():
     sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
@@ -145,9 +144,17 @@ def bus():
     conn.close()
     return render_template('bus.html', items = data)
 
+@app.route('/manager')
+def manager():
+    return render_template('manager.html')
+
 @app.route('/carrental')
 def carrental():
     return render_template('carrental.html')
+
+@app.route('/carbooking')
+def carbooking():
+    return render_template('carbooking.html')
 
 @app.route('/membership')
 def membership():
@@ -159,25 +166,288 @@ def membership():
     conn.close()
     return render_template('membership.html', items = data)
 
-@app.route('/customerpageofemployee')
-def customerpageofemployee():
-    return render_template('read.html')
+@app.route('/orderspageofemployee', methods = ['GET', 'POST'])
+def orderspageofemployee():
+    if request.method == 'GET':
+        return render_template('orderspageofemployee.html')
+    else:
+        sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+        orderNo = request.form['orderNo']
+        if orderNo == 'all':
+            conn = sqlite3.connect(sqlite_file)
+            cursor = conn.cursor()
+            cursor.execute('select * from Orders')
+            data = cursor.fetchall()
+            conn.close()
+            return render_template('orderspageofemployee.html', items = data)
+        else:
+            try:
+                orders = Orders.query.filter_by(orderNo = orderNo).first()
+            except:
+                return None
+            if orders is None:
+                info = 2
+                return render_template('orderspageofemployee.html', information = info)
+            else:
+                conn = sqlite3.connect(sqlite_file)
+                cursor = conn.cursor()
+                sql_query = "select * from Orders where orderNo = " + "'" + orderNo + "'"
+                cursor.execute(sql_query)
+                data = cursor.fetchall()
+                conn.close()
+                return render_template('orderspageofemployee.html', items = data)
+
+@app.route('/roomspageofemployee', methods = ['GET', 'POST'])
+def roomspageofemployee():
+    if request.method == 'GET':
+        return render_template('roomspageofemployee.html')
+    else:
+        sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+        roomNo = request.form['roomNo']
+        if roomNo == 'all':
+            conn = sqlite3.connect(sqlite_file)
+            cursor = conn.cursor()
+            cursor.execute('select * from Rooms')
+            data = cursor.fetchall()
+            conn.close()
+            return render_template('roomspageofemployee.html', items = data)
+        else:
+            try:
+                rooms = Rooms.query.filter_by(roomNo = roomNo).first()
+            except:
+                return None
+            if rooms is None:
+                info = 2
+                return render_template('roomspageofemployee.html', information = info)
+            else:
+                conn = sqlite3.connect(sqlite_file)
+                cursor = conn.cursor()
+                sql_query = "select * from Rooms where roomNo = " + "'" + roomNo + "'"
+                cursor.execute(sql_query)
+                data = cursor.fetchall()
+                conn.close()
+                return render_template('roomspageofemployee.html', items = data)
+
+@app.route('/maintainspageofemployee', methods = ['GET', 'POST'])
+def maintainspageofemployee():
+    if request.method == 'GET':
+        return render_template('maintainspageofemployee.html')
+    else:
+        sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+        record = request.form['record']
+        if record == 'all':
+            conn = sqlite3.connect(sqlite_file)
+            cursor = conn.cursor()
+            cursor.execute('select * from Maintains')
+            data = cursor.fetchall()
+            conn.close()
+            return render_template('maintainspageofemployee.html', items = data)
+        else:
+            try:
+                maintains = Maintains.query.filter_by(record = record).first()
+            except:
+                return None
+            if maintains is None:
+                info = 2
+                return render_template('maintainspageofemployee.html', information = info)
+            else:
+                conn = sqlite3.connect(sqlite_file)
+                cursor = conn.cursor()
+                sql_query = "select * from Maintains where record = " + "'" + record + "'"
+                cursor.execute(sql_query)
+                data = cursor.fetchall()
+                conn.close()
+                return render_template('maintainspageofemployee.html', items = data)
+
+@app.route('/equippageofemployee', methods = ['GET', 'POST'])
+def equippageofemployee():
+    if request.method == 'GET':
+        return render_template('equippageofemployee.html')
+    else:
+        sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+        record = request.form['record']
+        if record == 'all':
+            conn = sqlite3.connect(sqlite_file)
+            cursor = conn.cursor()
+            cursor.execute('select * from Public_Equipment_Repair')
+            data = cursor.fetchall()
+            conn.close()
+            return render_template('equippageofemployee.html', items = data)
+        else:
+            try:
+                equip = Public_Equipment_Repair.query.filter_by(record = record).first()
+            except:
+                return None
+            if equip is None:
+                info = 2
+                return render_template('equippageofemployee.html', information = info)
+            else:
+                conn = sqlite3.connect(sqlite_file)
+                cursor = conn.cursor()
+                sql_query = "select * from Public_Equipment_Repair where record = " + "'" + record + "'"
+                cursor.execute(sql_query)
+                data = cursor.fetchall()
+                conn.close()
+                return render_template('equippageofemployee.html', items = data)
+
+@app.route('/membershiptable', methods = ['GET', 'POST'])
+def membershiptable():
+    if request.method == 'GET':
+        return render_template('membershiptable.html')
+    else:
+        sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+        memberNo = request.form['memberNo']
+        if memberNo == 'all':
+            conn = sqlite3.connect(sqlite_file)
+            cursor = conn.cursor()
+            cursor.execute('select * from Membership')
+            data = cursor.fetchall()
+            conn.close()
+            return render_template('membershiptable.html', items = data)
+        else:
+            try:
+                membership = Membership.query.filter_by(memberNo = memberNo).first()
+            except:
+                return None
+            if membership is None:
+                info = 2
+                return render_template('membershiptable.html', information = info)
+            else:
+                conn = sqlite3.connect(sqlite_file)
+                cursor = conn.cursor()
+                sql_query = "select * from Membership where memberNo = " + "'" + memberNo + "'"
+                cursor.execute(sql_query)
+                data = cursor.fetchall()
+                conn.close()
+                return render_template('membershiptable.html', items = data)
+
+@app.route('/staffRead', methods = ['GET', 'POST'])
+def staffRead():
+    if request.method == 'GET':
+        return render_template('staffRead.html')
+    else:
+        sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+        staffNo = request.form['staffNo']
+        if staffNo == 'all':
+            conn = sqlite3.connect(sqlite_file)
+            cursor = conn.cursor()
+            cursor.execute('select * from Staff')
+            data = cursor.fetchall()
+            conn.close()
+            return render_template('staffRead.html', items = data)
+        else:
+            try:
+                staff = Staff.query.filter_by(staffNo = staffNo).first()
+            except:
+                return None
+            if staff is None:
+                info = 2
+                return render_template('staffRead.html', information = info)
+            else:
+                conn = sqlite3.connect(sqlite_file)
+                cursor = conn.cursor()
+                sql_query = "select * from Staff where staffNo = " + "'" + staffNo + "'"
+                cursor.execute(sql_query)
+                data = cursor.fetchall()
+                conn.close()
+                return render_template('staffRead.html', items = data)
+
+@app.route('/busesRead', methods = ['GET', 'POST'])
+def busesRead():
+    if request.method == 'GET':
+        return render_template('busesRead.html')
+    else:
+        sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+        licenseNo = request.form['license']
+        if licenseNo == 'all':
+            conn = sqlite3.connect(sqlite_file)
+            cursor = conn.cursor()
+            cursor.execute('select * from Buses')
+            data = cursor.fetchall()
+            conn.close()
+            return render_template('busesRead.html', items = data)
+        else:
+            try:
+                buses = Buses.query.filter_by(licenseNo = licenseNo).first()
+            except:
+                return None
+            if buses is None:
+                info = 2
+                return render_template('busesRead.html', information = info)
+            else:
+                conn = sqlite3.connect(sqlite_file)
+                cursor = conn.cursor()
+                sql_query = "select * from Buses where licenseNo = " + "'" + licenseNo + "'"
+                cursor.execute(sql_query)
+                data = cursor.fetchall()
+                conn.close()
+                return render_template('busesRead.html', items = data)
+
+@app.route('/rentCarRead', methods = ['GET', 'POST'])
+def rentCarRead():
+    if request.method == 'GET':
+        return render_template('rentCarRead.html')
+    else:
+        sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+        VIN = request.form['VIN']
+        if VIN == 'all':
+            conn = sqlite3.connect(sqlite_file)
+            cursor = conn.cursor()
+            cursor.execute('select * from Rent_Car')
+            data = cursor.fetchall()
+            conn.close()
+            return render_template('rentCarRead.html', items = data)
+        else:
+            try:
+                rentCar = Rent_Car.query.filter_by(VIN = VIN).first()
+            except:
+                return None
+            if rentCar is None:
+                info = 2
+                return render_template('rentCarRead.html', information = info)
+            else:
+                conn = sqlite3.connect(sqlite_file)
+                cursor = conn.cursor()
+                sql_query = "select * from Rent_Car where VIN = " + "'" + VIN + "'"
+                cursor.execute(sql_query)
+                data = cursor.fetchall()
+                conn.close()
+                return render_template('rentCarRead.html', items = data)
+
+@app.route('/dealRead', methods = ['GET', 'POST'])
+def dealRead():
+    if request.method == 'GET':
+        return render_template('dealRead.html')
+    else:
+        sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
+        dealNo = request.form['dealNo']
+        if dealNo == 'all':
+            conn = sqlite3.connect(sqlite_file)
+            cursor = conn.cursor()
+            cursor.execute('select * from Deal')
+            data = cursor.fetchall()
+            conn.close()
+            return render_template('dealRead.html', items = data)
+        else:
+            try:
+                deal = Deal.query.filter_by(dealNo = dealNo).first()
+            except:
+                return None
+            if deal is None:
+                info = 2
+                return render_template('dealRead.html', information = info)
+            else:
+                conn = sqlite3.connect(sqlite_file)
+                cursor = conn.cursor()
+                sql_query = "select * from Deal where dealNo = " + "'" + dealNo + "'"
+                cursor.execute(sql_query)
+                data = cursor.fetchall()
+                conn.close()
+                return render_template('dealRead.html', items = data)
 
 @app.route('/customer')
 def customer():
     return render_template('customer.html')
-
-@app.route('/employeedelete')
-def employeedelete():
-    return render_template('employeedelete.html')
-
-@app.route('/employeeupdate')
-def employeeupdate():
-    return render_template('employeeupdate.html')
-
-@app.route('/add')
-def add():
-    return render_template('add.html')
 
 @app.route('/roominformation')
 def roominformation():
