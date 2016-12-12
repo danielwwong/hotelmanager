@@ -124,9 +124,9 @@ def hello():
 
 @app.route('/signin', methods = ['GET', 'POST'])
 def signin():
-    PowerList=["3","1","2","3"]
-    CodeList=["manager","customer","employee","admin"]
-    NameList=["manager","customer","employee","admin"]
+    PowerList=["3","1","2","3","1"]
+    CodeList=["manager","customer","employee","admin","guest"]
+    NameList=["manager","customer","employee","admin","guest"]
     if request.method == 'POST':
         Password=request.form['Password']
         Name=request.form['Name']
@@ -142,10 +142,10 @@ def signin():
                     elif  auth == "3":
                         return render_template('manager.html')
                     else: 
-                        return render_template('signin.html',c=auth)
+                        return render_template('signin.html')
 
 
-        return render_template('signin.html',c=Name)
+        return render_template('signin.html')
     else:
         return render_template('signin.html')
 
