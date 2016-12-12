@@ -8,6 +8,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'hotel_manager.sqlite')
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 manager = Manager(app)
 db = SQLAlchemy(app)
@@ -27,7 +28,7 @@ class Orders(db.Model):
     __tablename__ = 'Orders'
     orderNo = db.Column(db.SmallInteger, primary_key = True)
     roomNo = db.Column(db.SmallInteger)
-    customer = db.Column(db.String(30))
+    customer_ssn = db.Column(db.String(30))
     checkInDate = db.Column(db.SmallInteger)
     checkOutDate = db.Column(db.SmallInteger)
     price = db.Column(db.Float)
@@ -63,7 +64,7 @@ class Maintains(db.Model):
     linens = db.Column(db.String(10))
     lQty = db.Column(db.SmallInteger)
     lType = db.Column(db.String(10))
-    reusable = db.Column(db.Boolean)
+    reusable = db.Column(db.SmallInteger)
     cost = db.Column(db.Float)
     date = db.Column(db.SmallInteger)
 
@@ -89,7 +90,7 @@ class Buses(db.Model):
 
 class Rent_Car(db.Model):
     __tablename__ = 'Rent_Car'
-    orderNo = db.Column(db.String(10),primary_key = True)
+    orderNo = db.Column(db.String(10), primary_key = True)
     VIN = db.Column(db.String(17))
     company = db.Column(db.String(20))
     carType = db.Column(db.String(10))
@@ -1262,5 +1263,5 @@ def query():
 
 if __name__ == '__main__':
     #manager.debug = True
-    app.run(host = '0.0.0.0', port = 8000,debug=True)
+    app.run(host = '0.0.0.0', port = 8000, debug = True)
     manager.run()
