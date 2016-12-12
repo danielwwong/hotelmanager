@@ -53,8 +53,8 @@
 					<div class="overlay-navigation">
 						<nav role="navigation">
 							<ul>
+								<li><a href="/create" data-content="Create Customer">Create</a></li>
 								<li><a href="/" data-content="Go Home">Home</a></li>
-								<li><a href="/delete" data-content="Delete Customer">Delete</a></li>
 								<li><a href="/query" data-content="Query Customer">Query</a></li>
 								<li><a href="/read" data-content="Read Customer">Read</a></li>
 								<li><a href="/update" data-content="Update Customer">Updata</a></li>
@@ -72,7 +72,7 @@
 		<!--banner-text-->
 		<div class="banner-text about-banner-text">
 			<div class="container">
-				<h2><a href="/">Home</a><span> / </span>Orders Table<span> / </span><span>Create</span></h2>
+				<h2><a href="/">Home</a><span> / </span>Rent Car Table<span> / </span><span>Delete</span></h2>
 			</div>
 		</div>
 		<!--//banner-text-->
@@ -83,38 +83,30 @@
 		<div class="container">
 			<div class="address-row">
 					<div class="address-grid" style="width:60%;margin:0px auto">
-						<h4>Add an Order</h4>
+						<h4>Delete a Car Rental</h4>
                         {% if information %}
                         {% if information == 1 %}
                         <div class="alert alert-success">
                             <a class="close" data-dismiss="alert">×</a>
-                            <strong>Success!</strong> You have successfully created it.
+                            <strong>Success!</strong> You have successfully deleted it.
                         </div>
                         {% else %}
                         <div class="alert alert-info">
                             <a class="close" data-dismiss="alert">×</a>
-                            <strong>Error!</strong> Cannot create it.
+                            <strong>Error!</strong> No record matches. Cannot delete it.
                         </div>
                         {% endif %}
                         {% endif %}
-                        <form action = "/ordersCreate" method = "POST">
-								<input type = "text" name = "orderNo" maxlength = "30" placeholder="Order Number" autofocus>
-								<input type = "text" name = "roomNo" maxlength = "30" placeholder="Room Number">
-								<input type = "text" name = "customer" maxlength = "300" placeholder="Customer">
-                                <label>Check In Date:  </label>
-                                <input type = "date" name = "checkInDate" placeholder="Check In Date"> <br/>
-                                <label>Check Out Date:  </label>
-                                <input type = "date" name = "checkOutDate" placeholder="Check Out Date"> <br/>
-                                <input type = "text" name = "price" maxlength = "30" placeholder="Price">
-                                <input type = "text" name = "pointChange" maxlength = "30" placeholder="Point Change">
-                                <input type = "text" name = "cashierNo" maxlength = "30" placeholder="Cashier Number">
-								<input type = "submit" value = "Create">
-							</form>
+                        <form action = "/rentCarDelete" method = "POST">
+                                <label>VIN</label>
+                                <input type = "text" name = "VIN" maxlength = "30" autofocus>
+                                <input type = "submit" value = "Delete">
+                        </form>
 					</div>
-			</div>	
-		</div>	
+			</div>
+		</div>
 	</div>
-	<!--//contact-->	
+	<!--//contact-->
 	<!--footer-->
 	<div class="footer">
 		<div class="container">

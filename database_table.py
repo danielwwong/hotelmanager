@@ -648,6 +648,177 @@ def dealCreate():
             info = 2
             return render_template('dealCreate.html', information = info)
 
+@app.route('/ordersDelete', methods = ['GET', 'POST'])
+def ordersDelete():
+    if request.method == 'GET':
+        return render_template('ordersDelete.html')
+    else:
+        orderNo = request.form['orderNo']
+        try:
+            orders = Orders.query.filter_by(orderNo = orderNo).first()
+        except:
+            return None
+        if orders is None:
+            info = 2
+            return render_template('ordersDelete.html', information = info)
+        else:
+            Orders.query.filter_by(orderNo = orderNo).delete()
+            db.session.commit()
+            info = 1
+            return render_template('ordersDelete.html', information = info)
+
+@app.route('/roomsDelete', methods = ['GET', 'POST'])
+def roomsDelete():
+    if request.method == 'GET':
+        return render_template('roomsDelete.html')
+    else:
+        roomNo = request.form['roomNo']
+        try:
+            rooms = Rooms.query.filter_by(roomNo = roomNo).first()
+        except:
+            return None
+        if rooms is None:
+            info = 2
+            return render_template('roomsDelete.html', information = info)
+        else:
+            Rooms.query.filter_by(roomNo = roomNo).delete()
+            db.session.commit()
+            info = 1
+            return render_template('roomsDelete.html', information = info)
+
+@app.route('/maintainsDelete', methods = ['GET', 'POST'])
+def roomsDelete():
+    if request.method == 'GET':
+        return render_template('maintainsDelete.html')
+    else:
+        record = request.form['record']
+        try:
+            maintains = Maintains.query.filter_by(record = record).first()
+        except:
+            return None
+        if maintains is None:
+            info = 2
+            return render_template('maintainsDelete.html', information = info)
+        else:
+            maintains.query.filter_by(record = record).delete()
+            db.session.commit()
+            info = 1
+            return render_template('maintainsDelete.html', information = info)
+
+@app.route('/equipDelete', methods = ['GET', 'POST'])
+def equipDelete():
+    if request.method == 'GET':
+        return render_template('equipDelete.html')
+    else:
+        record = request.form['record']
+        try:
+            equip = Public_Equipment_Repair.query.filter_by(record = record).first()
+        except:
+            return None
+        if equip is None:
+            info = 2
+            return render_template('equipDelete.html', information = info)
+        else:
+            equip.query.filter_by(record = record).delete()
+            db.session.commit()
+            info = 1
+            return render_template('equipDelete.html', information = info)
+
+@app.route('/membershipDelete', methods = ['GET', 'POST'])
+def membershipDelete():
+    if request.method == 'GET':
+        return render_template('membershipDelete.html')
+    else:
+        memberNo = request.form['memberNo']
+        try:
+            membership = Membership.query.filter_by(memberNo = memberNo).first()
+        except:
+            return None
+        if membership is None:
+            info = 2
+            return render_template('membershipDelete.html', information = info)
+        else:
+            membership.query.filter_by(memberNo = memberNo).delete()
+            db.session.commit()
+            info = 1
+            return render_template('membershipDelete.html', information = info)
+
+@app.route('/staffDelete', methods = ['GET', 'POST'])
+def staffDelete():
+    if request.method == 'GET':
+        return render_template('staffDelete.html')
+    else:
+        staffNo = request.form['staffNo']
+        try:
+            staff = Staff.query.filter_by(staffNo = staffNo).first()
+        except:
+            return None
+        if staff is None:
+            info = 2
+            return render_template('staffDelete.html', information = info)
+        else:
+            staff.query.filter_by(staffNo = staffNo).delete()
+            db.session.commit()
+            info = 1
+            return render_template('staffDelete.html', information = info)
+
+@app.route('/busesDelete', methods = ['GET', 'POST'])
+def busesDelete():
+    if request.method == 'GET':
+        return render_template('busesDelete.html')
+    else:
+        licenseNo = request.form['licenseNo']
+        try:
+            buses = Buses.query.filter_by(licenseNo = licenseNo).first()
+        except:
+            return None
+        if buses is None:
+            info = 2
+            return render_template('busesDelete.html', information = info)
+        else:
+            buses.query.filter_by(licenseNo = licenseNo).delete()
+            db.session.commit()
+            info = 1
+            return render_template('busesDelete.html', information = info)
+
+@app.route('/rentCarDelete', methods = ['GET', 'POST'])
+def rentCarDelete():
+    if request.method == 'GET':
+        return render_template('rentCarDelete.html')
+    else:
+        VIN = request.form['VIN']
+        try:
+            rentCar = Rent_Car.query.filter_by(VIN = VIN).first()
+        except:
+            return None
+        if rentCar is None:
+            info = 2
+            return render_template('rentCarDelete.html', information = info)
+        else:
+            rentCar.query.filter_by(VIN = VIN).delete()
+            db.session.commit()
+            info = 1
+            return render_template('rentCarDelete.html', information = info)
+
+@app.route('/dealDelete', methods = ['GET', 'POST'])
+def dealDelete():
+    if request.method == 'GET':
+        return render_template('dealDelete.html')
+    else:
+        dealNo = request.form['dealNo']
+        try:
+            deal = Deal.query.filter_by(dealNo = dealNo).first()
+        except:
+            return None
+        if deal is None:
+            info = 2
+            return render_template('dealDelete.html', information = info)
+        else:
+            deal.query.filter_by(dealNo = dealNo).delete()
+            db.session.commit()
+            info = 1
+            return render_template('dealDelete.html', information = info)
+
 @app.route('/customer')
 def customer():
     return render_template('customer.html')
