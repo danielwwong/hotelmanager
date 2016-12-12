@@ -122,9 +122,32 @@ class Deal(db.Model):
 def hello():
     return render_template('hello.html')
 
-@app.route('/signin')
+@app.route('/signin', methods = ['GET', 'POST'])
 def signin():
-    return render_template('signin.html')
+    PowerList=["3","1","2","3"]
+    CodeList=["manager","customer","employee","admin"]
+    NameList=["manager","customer","employee","admin"]
+    if request.method == 'POST':
+        Password=request.form['Password']
+        Name=request.form['Name']
+        for n in NameList:
+            if n == Name:
+                index = NameList.index(Name)
+                if CodeList[index] == Password:
+                    auth = PowerList[index]
+                    if  auth == "1":
+                        return render_template('customer.html')
+                    elif  auth == "2":
+                        return render_template('employee.html')
+                    elif  auth == "3":
+                        return render_template('manager.html')
+                    else: 
+                        return render_template('signin.html',c=auth)
+
+
+        return render_template('signin.html',c=Name)
+    else:
+        return render_template('signin.html')
 
 @app.route('/booking', methods = ['GET', 'POST'])
 def booking():
@@ -1238,5 +1261,5 @@ def query():
 
 if __name__ == '__main__':
     #manager.debug = True
-    app.run(host = '0.0.0.0', port = 8000)
+    app.run(host = '0.0.0.0', port = 8000,debug=True)
     manager.run()
