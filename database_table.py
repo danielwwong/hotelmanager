@@ -379,8 +379,8 @@ def busesRead():
         return render_template('busesRead.html')
     else:
         sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
-        licenseNo = request.form['license']
-        if licenseNo == 'all':
+        SCHED = request.form['SCHED']
+        if SCHED == 'all':
             conn = sqlite3.connect(sqlite_file)
             cursor = conn.cursor()
             cursor.execute('select * from Buses')
@@ -389,7 +389,7 @@ def busesRead():
             return render_template('busesRead.html', items = data)
         else:
             try:
-                buses = Buses.query.filter_by(licenseNo = licenseNo).first()
+                buses = Buses.query.filter_by(SCHED = SCHED).first()
             except:
                 return None
             if buses is None:
@@ -398,7 +398,7 @@ def busesRead():
             else:
                 conn = sqlite3.connect(sqlite_file)
                 cursor = conn.cursor()
-                sql_query = "select * from Buses where licenseNo = " + "'" + licenseNo + "'"
+                sql_query = "select * from Buses where SCHED = " + "'" + SCHED + "'"
                 cursor.execute(sql_query)
                 data = cursor.fetchall()
                 conn.close()
@@ -410,8 +410,8 @@ def rentCarRead():
         return render_template('rentCarRead.html')
     else:
         sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
-        VIN = request.form['VIN']
-        if VIN == 'all':
+        orderNo = request.form['orderNo']
+        if orderNo == 'all':
             conn = sqlite3.connect(sqlite_file)
             cursor = conn.cursor()
             cursor.execute('select * from Rent_Car')
@@ -420,7 +420,7 @@ def rentCarRead():
             return render_template('rentCarRead.html', items = data)
         else:
             try:
-                rentCar = Rent_Car.query.filter_by(VIN = VIN).first()
+                rentCar = Rent_Car.query.filter_by(orderNo = orderNo).first()
             except:
                 return None
             if rentCar is None:
@@ -429,7 +429,7 @@ def rentCarRead():
             else:
                 conn = sqlite3.connect(sqlite_file)
                 cursor = conn.cursor()
-                sql_query = "select * from Rent_Car where VIN = " + "'" + VIN + "'"
+                sql_query = "select * from Rent_Car where orderNo = " + "'" + orderNo + "'"
                 cursor.execute(sql_query)
                 data = cursor.fetchall()
                 conn.close()
@@ -473,13 +473,13 @@ def ordersCreate():
     else:
         orderNo = request.form['orderNo']
         roomNo = request.form['roomNo']
-        customer = request.form['customer']
+        customer_ssn = request.form['customer_ssn']
         checkInDate = request.form['checkInDate']
         checkOutDate = request.form['checkOutDate']
         price = request.form['price']
         pointChange = request.form['pointChange']
         cashierNo = request.form['cashierNo']
-        orders = Orders(orderNo = orderNo, roomNo = roomNo, customer = customer, checkInDate = checkInDate, checkOutDate = checkOutDate, price = price, pointChange = pointChange, cashierNo = cashierNo)
+        orders = Orders(orderNo = orderNo, roomNo = roomNo, customer_ssn = customer_ssn, checkInDate = checkInDate, checkOutDate = checkOutDate, price = price, pointChange = pointChange, cashierNo = cashierNo)
         try:
             db.session.add(orders)
             db.session.commit()
@@ -605,15 +605,15 @@ def busesCreate():
     if request.method == 'GET':
         return render_template('busesCreate.html')
     else:
-        licenseNo = request.form['licenseNo']
-        lines = request.form['lines']
+        VIN = request.form['VIN']
+        SCHED = request.form['SCHED']
         destination = request.form['destination']
         departTime = request.form['departTime']
         carType = request.form['carType']
         capacity = request.form['capacity']
         price = request.form['price']
         takenBy = request.form['takenBy']
-        buses = Buses(licenseNo = licenseNo, lines = lines, destination = destination, departTime = departTime, carType = carType, capacity = capacity, price = price, takenBy = takenBy)
+        buses = Buses(VIN = VIN, SCHED = SCHED, destination = destination, departTime = departTime, carType = carType, capacity = capacity, price = price, takenBy = takenBy)
         try:
             db.session.add(buses)
             db.session.commit()
@@ -628,6 +628,7 @@ def rentCarCreate():
     if request.method == 'GET':
         return render_template('rentCarCreate.html')
     else:
+        orderNo = request.form['orderNo'];
         VIN = request.form['VIN']
         company = request.form['company']
         carType = request.form['carType']
@@ -638,7 +639,7 @@ def rentCarCreate():
         rentPlace = request.form['rentPlace']
         returnPlace = request.form['returnPlace']
         rentBy = request.form['rentBy']
-        rentCar = Rent_Car(VIN = VIN, company = company, carType = carType, capacity = capacity, priceTotal = priceTotal, rentDate = rentDate, returnDate = returnDate, rentPlace = rentPlace, returnPlace = returnPlace, rentBy = rentBy)
+        rentCar = Rent_Car(orderNo = orderNo, VIN = VIN, company = company, carType = carType, capacity = capacity, priceTotal = priceTotal, rentDate = rentDate, returnDate = returnDate, rentPlace = rentPlace, returnPlace = returnPlace, rentBy = rentBy)
         try:
             db.session.add(rentCar)
             db.session.commit()
@@ -788,16 +789,16 @@ def busesDelete():
     if request.method == 'GET':
         return render_template('busesDelete.html')
     else:
-        licenseNo = request.form['licenseNo']
+        SCHED = request.form['SCHED']
         try:
-            buses = Buses.query.filter_by(licenseNo = licenseNo).first()
+            buses = Buses.query.filter_by(SCHED = SCHED).first()
         except:
             return None
         if buses is None:
             info = 2
             return render_template('busesDelete.html', information = info)
         else:
-            buses.query.filter_by(licenseNo = licenseNo).delete()
+            buses.query.filter_by(SCHED = SCHED).delete()
             db.session.commit()
             info = 1
             return render_template('busesDelete.html', information = info)
@@ -807,16 +808,16 @@ def rentCarDelete():
     if request.method == 'GET':
         return render_template('rentCarDelete.html')
     else:
-        VIN = request.form['VIN']
+        orderNo = request.form['orderNo']
         try:
-            rentCar = Rent_Car.query.filter_by(VIN = VIN).first()
+            rentCar = Rent_Car.query.filter_by(orderNo = orderNo).first()
         except:
             return None
         if rentCar is None:
             info = 2
             return render_template('rentCarDelete.html', information = info)
         else:
-            rentCar.query.filter_by(VIN = VIN).delete()
+            rentCar.query.filter_by(orderNo = orderNo).delete()
             db.session.commit()
             info = 1
             return render_template('rentCarDelete.html', information = info)
@@ -847,7 +848,7 @@ def ordersUpdate():
     else:
         orderNo = request.form['orderNo']
         roomNo = request.form['roomNo']
-        customer = request.form['customer']
+        customer_ssn = request.form['customer_ssn']
         checkInDate = request.form['checkInDate']
         checkOutDate = request.form['checkOutDate']
         price = request.form['price']
@@ -863,7 +864,7 @@ def ordersUpdate():
         else:
             orders.orderNo = orderNo
             orders.roomNo = roomNo
-            orders.customer = customer
+            orders.customer_ssn = customer_ssn
             orders.checkInDate = checkInDate
             orders.checkOutDate = checkOutDate
             orders.price = price
@@ -1035,8 +1036,8 @@ def busesUpdate():
     if request.method == 'GET':
         return render_template('busesUpdate.html')
     else:
-        licenseNo = request.form['licenseNo']
-        lines = request.form['lines']
+        VIN = request.form['VIN']
+        SCHED = request.form['SCHED]
         destination = request.form['destination']
         departTime = request.form['departTime']
         carType = request.form['carType']
@@ -1044,15 +1045,15 @@ def busesUpdate():
         price = request.form['price']
         takenBy = request.form['takenBy']
         try:
-            buses = Buses.query.filter_by(licenseNo = licenseNo).first()
+            buses = Buses.query.filter_by(SCHED = SCHED).first()
         except:
             return None
         if buses is None:
             info = 2
             return render_template('busesUpdate.html', information = info)
         else:
-            buses.licenseNo = licenseNo
-            buses.lines = lines
+            buses.VIN = VIN
+            buses.SCHED = SCHED
             buses.destination = destination
             buses.departTime = departTime
             buses.carType = carType
@@ -1068,6 +1069,7 @@ def rentCarUpdate():
     if request.method == 'GET':
         return render_template('rentCarUpdate.html')
     else:
+        orderNo = request.form['orderNo']
         VIN = request.form['VIN']
         company = request.form['company']
         carType = request.form['carType']
@@ -1079,13 +1081,14 @@ def rentCarUpdate():
         returnPlace = request.form['returnPlace']
         rentBy = request.form['rentBy']
         try:
-            rentCar = Rent_Car.query.filter_by(VIN = VIN).first()
+            rentCar = Rent_Car.query.filter_by(orderNo = orderNo).first()
         except:
             return None
         if rentCar is None:
             info = 2
             return render_template('rentCarUpdate.html', information = info)
         else:
+            rentCar.orderNo = orderNo
             rentCar.VIN = VIN
             rentCar.company = company
             rentCar.carType = carType

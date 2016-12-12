@@ -78,7 +78,7 @@
     <table style = "border:3px solid; padding:5px;" rules="all" cellpadding='5'>
         <thead>
         <tr>
-            <th>Lines</th>
+            <th>Schedual</th>
             <th>Destination</th>
             <th>Departure Time</th>
         </tr>
@@ -86,7 +86,7 @@
         <tbody>
         {% for item in items %}
         <tr>
-            {% if item[1] != "lines" %}
+            {% if item[1] != "SCHED" %}
             <td>{{item[1]}}</td>
             {% endif %}
             {% if item[2] != "destination" %}
