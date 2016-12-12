@@ -152,10 +152,6 @@ def manager():
 def carrental():
     return render_template('carrental.html')
 
-@app.route('/carbooking')
-def carbooking():
-    return render_template('carbooking.html')
-
 @app.route('/membership')
 def membership():
     sqlite_file = os.path.join(basedir, 'hotel_manager.sqlite')
@@ -687,7 +683,7 @@ def roomsDelete():
             return render_template('roomsDelete.html', information = info)
 
 @app.route('/maintainsDelete', methods = ['GET', 'POST'])
-def roomsDelete():
+def maintainsDelete():
     if request.method == 'GET':
         return render_template('maintainsDelete.html')
     else:
@@ -818,6 +814,295 @@ def dealDelete():
             db.session.commit()
             info = 1
             return render_template('dealDelete.html', information = info)
+
+@app.route('/ordersUpdate', methods = ['GET', 'POST'])
+def ordersUpdate():
+    if request.method == 'GET':
+        return render_template('ordersUpdate.html')
+    else:
+        orderNo = request.form['orderNo']
+        roomNo = request.form['roomNo']
+        customer = request.form['customer']
+        checkInDate = request.form['checkInDate']
+        checkOutDate = request.form['checkOutDate']
+        price = request.form['price']
+        pointChange = request.form['pointChange']
+        cashierNo = request.form['cashierNo']
+        try:
+            orders = Orders.query.filter_by(orderNo = orderNo).first()
+        except:
+            return None
+        if orders is None:
+            info = 2
+            return render_template('ordersUpdate.html', information = info)
+        else:
+            orders.orderNo = orderNo
+            orders.roomNo = roomNo
+            orders.customer = customer
+            orders.checkInDate = checkInDate
+            orders.checkOutDate = checkOutDate
+            orders.price = price
+            orders.pointChange = pointChange
+            orders.cashierNo = cashierNo
+            db.session.commit()
+            info = 1
+            return render_template('ordersUpdate.html', information = info)
+
+@app.route('/roomsUpdate', methods = ['GET', 'POST'])
+def roomsUpdate():
+    if request.method == 'GET':
+        return render_template('roomsUpdate.html')
+    else:
+        roomNo = request.form['roomNo']
+        inRoomBill = request.form['inRoomBill']
+        capacity = request.form['capacity']
+        bedsNo = request.form['bedsNo']
+        type = request.form['type']
+        status = request.form['status']
+        try:
+            rooms = Rooms.query.filter_by(roomNo = roomNo).first()
+        except:
+            return None
+        if rooms is None:
+            info = 2
+            return render_template('roomsUpdate.html', information = info)
+        else:
+            rooms.roomNo = roomNo
+            rooms.inRoomBill = inRoomBill
+            rooms.capacity = capacity
+            rooms.bedsNo = bedsNo
+            rooms.type = type
+            rooms.status = status
+            db.session.commit()
+            info = 1
+            return render_template('roomsUpdate.html', information = info)
+
+@app.route('/maintainsUpdate', methods = ['GET', 'POST'])
+def maintainsUpdate():
+    if request.method == 'GET':
+        return render_template('maintainsUpdate.html')
+    else:
+        record = request.form['record']
+        staffNo = request.form['staffNo']
+        roomNo = request.form['roomNo']
+        linens = request.form['linens']
+        lQty = request.form['lQty']
+        lType = request.form['lType']
+        reusable = request.form['reusable']
+        cost = request.form['cost']
+        date = request.form['date']
+        try:
+            maintains = Maintains.query.filter_by(record = record).first()
+        except:
+            return None
+        if maintains is None:
+            info = 2
+            return render_template('maintainsUpdate.html', information = info)
+        else:
+            maintains.record = record
+            maintains.staffNo = staffNo
+            maintains.roomNo = roomNo
+            maintains.linens = linens
+            maintains.lQty = lQty
+            maintains.lType = lType
+            maintains.reusable = reusable
+            maintains.cost = cost
+            maintains.date = date
+            db.session.commit()
+            info = 1
+            return render_template('maintainsUpdate.html', information = info)
+
+@app.route('/equipUpdate', methods = ['GET', 'POST'])
+def equipUpdate():
+    if request.method == 'GET':
+        return render_template('equipUpdate.html')
+    else:
+        record = request.form['record']
+        staffNo = request.form['staffNo']
+        equipName = request.form['equipName']
+        equipID = request.form['equipID']
+        cost = request.form['cost']
+        date = request.form['date']
+        try:
+            equip = Public_Equipment_Repair.query.filter_by(record = record).first()
+        except:
+            return None
+        if equip is None:
+            info = 2
+            return render_template('equipUpdate.html', information = info)
+        else:
+            equip.record = record
+            equip.staffNo = staffNo
+            equip.equipName = equipName
+            equip.equipID = equipID
+            equip.cost = cost
+            equip.date = date
+            db.session.commit()
+            info = 1
+            return render_template('equipUpdate.html', information = info)
+
+@app.route('/membershipUpdate', methods = ['GET', 'POST'])
+def membershipUpdate():
+    if request.method == 'GET':
+        return render_template('membershipUpdate.html')
+    else:
+        memberNo = request.form['memberNo']
+        name = request.form['name']
+        points = request.form['points']
+        level = request.form['level']
+        beginDate = request.form['beginDate']
+        endDate = request.form['endDate']
+        try:
+            membership = Membership.query.filter_by(memberNo = memberNo).first()
+        except:
+            return None
+        if membership is None:
+            info = 2
+            return render_template('membershipUpdate.html', information = info)
+        else:
+            membership.memberNo = memberNo
+            membership.name = name
+            membership.points = points
+            membership.level = level
+            membership.beginDate = beginDate
+            membership.endDate = endDate
+            db.session.commit()
+            info = 1
+            return render_template('membershipUpdate.html', information = info)
+
+@app.route('/staffUpdate', methods = ['GET', 'POST'])
+def staffUpdate():
+    if request.method == 'GET':
+        return render_template('staffUpdate.html')
+    else:
+        ssn = request.form['ssn']
+        staffNo = request.form['staffNo']
+        position = request.form['position']
+        workYear = request.form['workYear']
+        name = request.form['name']
+        address = request.form['address']
+        phone = request.form['phone']
+        gender = request.form['gender']
+        salary = request.form['salary']
+        try:
+            staff = Staff.query.filter_by(staffNo = staffNo).first()
+        except:
+            return None
+        if staff is None:
+            info = 2
+            return render_template('staffUpdate.html', information = info)
+        else:
+            staff.ssn = ssn
+            staff.staffNo = staffNo
+            staff.position = position
+            staff.workYear = workYear
+            staff.name = name
+            staff.address = address
+            staff.phone = phone
+            staff.gender = gender
+            staff.salary = salary
+            db.session.commit()
+            info = 1
+            return render_template('staffUpdate.html', information = info)
+
+@app.route('/busesUpdate', methods = ['GET', 'POST'])
+def busesUpdate():
+    if request.method == 'GET':
+        return render_template('busesUpdate.html')
+    else:
+        licenseNo = request.form['licenseNo']
+        lines = request.form['lines']
+        destination = request.form['destination']
+        departTime = request.form['departTime']
+        carType = request.form['carType']
+        capacity = request.form['capacity']
+        price = request.form['price']
+        takenBy = request.form['takenBy']
+        try:
+            buses = Buses.query.filter_by(licenseNo = licenseNo).first()
+        except:
+            return None
+        if buses is None:
+            info = 2
+            return render_template('busesUpdate.html', information = info)
+        else:
+            buses.licenseNo = licenseNo
+            buses.lines = lines
+            buses.destination = destination
+            buses.departTime = departTime
+            buses.carType = carType
+            buses.capacity = capacity
+            buses.price = price
+            buses.takenBy = takenBy
+            db.session.commit()
+            info = 1
+            return render_template('busesUpdate.html', information = info)
+
+@app.route('/rentCarUpdate', methods = ['GET', 'POST'])
+def rentCarUpdate():
+    if request.method == 'GET':
+        return render_template('rentCarUpdate.html')
+    else:
+        VIN = request.form['VIN']
+        company = request.form['company']
+        carType = request.form['carType']
+        capacity = request.form['capacity']
+        priceTotal = request.form['priceTotal']
+        rentDate = request.form['rentDate']
+        returnDate = request.form['returnDate']
+        rentPlace = request.form['rentPlace']
+        returnPlace = request.form['returnPlace']
+        rentBy = request.form['rentBy']
+        try:
+            rentCar = Rent_Car.query.filter_by(VIN = VIN).first()
+        except:
+            return None
+        if rentCar is None:
+            info = 2
+            return render_template('rentCarUpdate.html', information = info)
+        else:
+            rentCar.VIN = VIN
+            rentCar.company = company
+            rentCar.carType = carType
+            rentCar.capacity = capacity
+            rentCar.priceTotal = priceTotal
+            rentCar.rentDate = rentDate
+            rentCar.returnDate = returnDate
+            rentCar.rentPlace = rentPlace
+            rentCar.returnPlace = returnPlace
+            rentCar.rentBy = rentBy
+            db.session.commit()
+            info = 1
+            return render_template('rentCarUpdate.html', information = info)
+
+@app.route('/dealUpdate', methods = ['GET', 'POST'])
+def dealUpdate():
+    if request.method == 'GET':
+        return render_template('dealUpdate.html')
+    else:
+        activity = request.form['activity']
+        joinLevel = request.form['joinLevel']
+        capacity = request.form['capacity']
+        beginDate = request.form['beginDate']
+        endDate = request.form['endDate']
+        dealNo = request.form['dealNo']
+        try:
+            deal = Deal.query.filter_by(dealNo = dealNo).first()
+        except:
+            return None
+        if deal is None:
+            info = 2
+            return render_template('dealUpdate.html', information = info)
+        else:
+            deal.activity = activity
+            deal.joinLevel = joinLevel
+            deal.capacity = capacity
+            deal.beginDate = beginDate
+            deal.endDate = endDate
+            deal.dealNo = dealNo
+            db.session.commit()
+            info = 1
+            return render_template('dealUpdate.html', information = info)
 
 @app.route('/customer')
 def customer():
