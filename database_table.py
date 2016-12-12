@@ -78,8 +78,8 @@ class Public_Equipment_Repair(db.Model):
 
 class Buses(db.Model):
     __tablename__ = 'Buses'
-    licenseNo = db.Column(db.String(10), primary_key = True)
-    lines = db.Column(db.String(10))
+    VIN = db.Column(db.String(10))
+    SCHED = db.Column(db.String(10), primary_key = True)
     destination = db.Column(db.String(20))
     departTime = db.Column(db.SmallInteger)
     carType = db.Column(db.String(10))
@@ -89,7 +89,8 @@ class Buses(db.Model):
 
 class Rent_Car(db.Model):
     __tablename__ = 'Rent_Car'
-    VIN = db.Column(db.String(17), primary_key = True)
+    order_no = db.Column(db.String(10),primary_key = True)
+    VIN = db.Column(db.String(17))
     company = db.Column(db.String(20))
     carType = db.Column(db.String(10))
     capacity = db.Column(db.SmallInteger)
