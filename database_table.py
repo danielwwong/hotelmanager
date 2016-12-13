@@ -590,7 +590,7 @@ def staffCreate():
         phone = request.form['phone']
         gender = request.form['gender']
         salary = request.form['salary']
-        staff = Staff(ssn = ssn, staffNo = staffNo, position = position,workYear = workYear, name = name, address = address, phone = phone, gender = gender, salary = salary, staff = staff)
+        staff = Staff(ssn = ssn, staffNo = staffNo, position = position,workYear = workYear, name = name, address = address, phone = phone, gender = gender, salary = salary)
         try:
             db.session.add(staff)
             db.session.commit()
@@ -1037,7 +1037,7 @@ def busesUpdate():
         return render_template('busesUpdate.html')
     else:
         VIN = request.form['VIN']
-        SCHED = request.form['SCHED]
+        SCHED = request.form['SCHED']
         destination = request.form['destination']
         departTime = request.form['departTime']
         carType = request.form['carType']
