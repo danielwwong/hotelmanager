@@ -144,10 +144,10 @@ def signin():
                     elif  auth == "3":
                         return render_template('manager.html')
                     else: 
-                        return render_template('signin.html')
+                        return render_template('signin.html',errorInfo="1")
 
 
-        return render_template('signin.html')
+        return render_template('signin.html',errorInfo="1")
     else:
         return render_template('signin.html')
 

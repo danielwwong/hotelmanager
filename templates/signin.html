@@ -84,10 +84,12 @@
 			<div class="address-row">
 					<div class="address-grid" style="width:60%;margin:0px auto">
 						<h4>Sign in</h4>
+						{% if errorInfo == "1" %}
                         <div class="alert alert-info">
                             <a class="close" data-dismiss="alert">×</a>
                             <strong>Error!</strong> Invalid User Name or Password.
                         </div>
+                        {% endif %}
                         <form action = "/signin" method = "POST">
 								<input type = "text" name = "Name" maxlength = "30" placeholder="Name" autofocus>
 								<input type = "password" name = "Password" maxlength = "300" placeholder="Password"
